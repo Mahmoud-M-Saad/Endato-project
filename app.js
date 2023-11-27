@@ -145,7 +145,7 @@ const collect_officers_from_eachbusinessSearch = function (businessV2res) {
       if (target_usCorpFilings_list.length >= 1) {
         let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j].officers
         //    console.log(temp_officers_list_per_usCorpFilings.length)
-        if (temp_officers_list_per_usCorpFilings === []) {
+        if (temp_officers_list_per_usCorpFilings.length === 0) {
           console.log("😒", "there is no officers in this res")
           return
         }
@@ -622,17 +622,7 @@ async function readDataFromFS_ToAirTable(filePath, res) {
     console.error('Error:', error);
     res.status(500).json({ message: 'Error processing data' });
   }
-}
-
-
-
-
-
-
-
-
-
-
+};
 
 let test = {
   "businessV2Records": [
@@ -3719,12 +3709,12 @@ let test = {
       "warnings": []
   }
 }
-
 //let x = collect_officers_from_eachbusinessSearch(test)
 //console.log(x)
 
-
-
+app.get('/test',(req,res)=>{
+    res.json("The test work true!");
+})
 
 app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
   const filename = req.file.path;
@@ -3762,13 +3752,11 @@ app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
 
 
   
-})
-
-
+});
 
 app.listen(3000, () => {
   console.log("Welcome Form Server!");
-})
+});
 
 
 
