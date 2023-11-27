@@ -1,0 +1,251 @@
+{
+    "person": {
+        "name": {
+            "firstName": "Ramon",
+            "middleName": "Francisco",
+            "lastName": "Cardenas"
+        },
+        "age": "81",
+        "addresses": [
+            {
+                "street": "6760 Hammond Ave",
+                "unit": "",
+                "city": "Long Beach",
+                "state": "CA",
+                "zip": "90805",
+                "firstReportedDate": "3/1/1984",
+                "lastReportedDate": "9/1/2023"
+            },
+            {
+                "street": "3101 N 65th Dr",
+                "unit": "",
+                "city": "Phoenix",
+                "state": "AZ",
+                "zip": "85033",
+                "firstReportedDate": "4/1/1994",
+                "lastReportedDate": "3/25/2008"
+            },
+            {
+                "street": "11915 Shoemaker Ave",
+                "unit": "",
+                "city": "Santa Fe Springs",
+                "state": "CA",
+                "zip": "90670",
+                "firstReportedDate": "3/7/2001",
+                "lastReportedDate": "2/13/2019"
+            },
+            {
+                "street": "1820 E Broadway Rd",
+                "unit": "",
+                "city": "Phoenix",
+                "state": "AZ",
+                "zip": "85040",
+                "firstReportedDate": "12/1/2001",
+                "lastReportedDate": "8/31/2010"
+            },
+            {
+                "street": "9526 Samoline Ave",
+                "unit": "",
+                "city": "Downey",
+                "state": "CA",
+                "zip": "90240",
+                "firstReportedDate": "5/11/1994",
+                "lastReportedDate": "9/23/2014"
+            }
+        ],
+        "phones": [
+            {
+                "number": "(562) 630-7868",
+                "type": "landline",
+                "isConnected": true,
+                "firstReportedDate": "8/1/2010",
+                "lastReportedDate": "9/1/2023"
+            },
+            {
+                "number": "(562) 927-8701",
+                "type": "landline",
+                "isConnected": true,
+                "firstReportedDate": "11/13/2000",
+                "lastReportedDate": "8/15/2022"
+            },
+            {
+                "number": "(562) 234-1915",
+                "type": "mobile",
+                "isConnected": true,
+                "firstReportedDate": "11/13/2000",
+                "lastReportedDate": "8/15/2022"
+            },
+            {
+                "number": "(623) 849-3096",
+                "type": "landline",
+                "isConnected": true,
+                "firstReportedDate": "4/1/1994",
+                "lastReportedDate": "4/1/1994"
+            }
+        ],
+        "emails": [
+            {
+                "email": "ramonc@sealmethodsinc.com",
+                "isValidated": true,
+                "isBusiness": true
+            }
+        ]
+    },
+    "message": "",
+    "identityScore": 100,
+    "pagination": {
+        "currentPageNumber": 1,
+        "resultsPerPage": 1,
+        "totalPages": 1,
+        "totalResults": 0
+    },
+    "databaseQueryInfo": [],
+    "searchCriteria": [],
+    "totalRequestExecutionTimeMs": 413,
+    "requestId": "230555e0-7fac-4e9a-9892-5b1218241ebd",
+    "requestType": "DevAPIContactEnrich",
+    "requestTime": "2023-10-09T05:14:26.9988414-07:00",
+    "isError": false,
+    "error": {
+        "inputErrors": [],
+        "warnings": []
+    }
+}
+
+
+/***************************** */
+{
+    "person": {
+        "name": {
+            "firstName": "Ramon",
+            "middleName": "C",
+            "lastName": "Cardenas"
+        },
+        "age": "54",
+        "addresses": [
+            {
+                "street": "4802 W Monte Vista Rd",
+                "unit": "",
+                "city": "Phoenix",
+                "state": "AZ",
+                "zip": "85035",
+                "firstReportedDate": "8/1/2016",
+                "lastReportedDate": "9/1/2023"
+            },
+            {
+                "street": "7002 N 34th Ave",
+                "unit": "",
+                "city": "Phoenix",
+                "state": "AZ",
+                "zip": "85051",
+                "firstReportedDate": "8/3/2012",
+                "lastReportedDate": "3/31/2021"
+            },
+            {
+                "street": "2817 W Solano Dr S",
+                "unit": "",
+                "city": "Phoenix",
+                "state": "AZ",
+                "zip": "85017",
+                "firstReportedDate": "1/1/2011",
+                "lastReportedDate": "3/31/2021"
+            },
+            {
+                "street": "8442 W Mackenzie Dr",
+                "unit": "",
+                "city": "Phoenix",
+                "state": "AZ",
+                "zip": "85037",
+                "firstReportedDate": "1/4/2010",
+                "lastReportedDate": "3/31/2021"
+            },
+            {
+                "street": "3115 E 64th St",
+                "unit": "",
+                "city": "Long Beach",
+                "state": "CA",
+                "zip": "90805",
+                "firstReportedDate": "1/1/2011",
+                "lastReportedDate": "4/3/2014"
+            }
+        ],
+        "phones": [
+            {
+                "number": "(562) 927-8701",
+                "type": "landline",
+                "isConnected": true,
+                "firstReportedDate": "8/1/2010",
+                "lastReportedDate": "9/1/2023"
+            },
+            {
+                "number": "(602) 702-9504",
+                "type": "mobile",
+                "isConnected": true,
+                "firstReportedDate": "2/3/2022",
+                "lastReportedDate": "1/15/2023"
+            },
+            {
+                "number": "(562) 630-7868",
+                "type": "landline",
+                "isConnected": true,
+                "firstReportedDate": "12/1/1995",
+                "lastReportedDate": "6/15/2022"
+            },
+            {
+                "number": "(562) 234-1915",
+                "type": "mobile",
+                "isConnected": true,
+                "firstReportedDate": "7/1/2012",
+                "lastReportedDate": "7/1/2012"
+            },
+            {
+                "number": "(602) 702-7619",
+                "type": "mobile",
+                "isConnected": true,
+                "firstReportedDate": "8/28/2016",
+                "lastReportedDate": "12/1/2020"
+            }
+        ],
+        "emails": [
+            {
+                "email": "danielr.cardenas96@yahoo.com",
+                "isValidated": true,
+                "isBusiness": false
+            },
+            {
+                "email": "mariacardenas311@gmail.com",
+                "isValidated": true,
+                "isBusiness": false
+            },
+            {
+                "email": "mcardenas9503@yahoo.com",
+                "isValidated": false,
+                "isBusiness": false
+            },
+            {
+                "email": "cardenase1313@yahoo.com",
+                "isValidated": true,
+                "isBusiness": false
+            }
+        ]
+    },
+    "message": "",
+    "identityScore": 100,
+    "pagination": {
+        "currentPageNumber": 1,
+        "resultsPerPage": 1,
+        "totalPages": 1,
+        "totalResults": 0
+    },
+    "databaseQueryInfo": [],
+    "searchCriteria": [],
+    "totalRequestExecutionTimeMs": 336,
+    "requestId": "e12e430d-ccb0-4059-8efa-9c06e4424184",
+    "requestType": "DevAPIContactEnrich",
+    "requestTime": "2023-10-09T07:03:54.3851307-07:00",
+    "isError": false,
+    "error": {
+        "inputErrors": [],
+        "warnings": []
+    }
+}

@@ -1,0 +1,100 @@
+[{
+  "Bureau Number": "1483492",
+  "Primary Names": ["D R KLASSEN PACKING INC", "D R KLASSEN FARMS INC"],
+  "CopyPasteURLs": [
+    "http://www.google.com/search?q=D.+R.+KLASSEN+PACKING+INC+REEDLEY+CA+93654+(manta+%7c+buzzfile)",
+    "http://www.google.com/search?q=D.R.+KLASSEN+FARMS%2c+INC.+REEDLEY+CA+93654+(manta+%7c+buzzfile)"
+  ],
+  "Primary Name": "D R KLASSEN PACKING INC",
+  "Street Address": "6054 AVENUE 426",
+  "City": "REEDLEY",
+  "State": "CA",
+  "Zip Code": "93654",
+  "County": "Fresno County",
+  "Governing Class": "2107",
+  "Description": "FRUIT-FRESH FRUIT PACKING/HANDLING",
+  "Ex Mod Year": "24",
+  "ExMod": "82",
+  "Updated On": "9/20/23",
+  "ExMod Change": "-35",
+  "Insurer Name": "Oak River Insurance Company",
+  "Insurer Group": "BERKSHIRE HATHAWAY GRP",
+  "Advisory Rate": "7.81",
+  "Rate Eff Date": "9/1/23",
+  "SubClass1": "16",
+  "Desc1": "ORCHARDS-CITRUS/DECIDUOUS FRUITS",
+  "SubClass2": "40",
+  "Desc2": "VINEYARDS",
+  "PriorExModYear1": "23",
+  "PriorExMod1": "117",
+  "PriorExModYear2": "22",
+  "PriorExMod2": "100",
+  "PriorExModYear3": "21",
+  "PriorExMod3": "95",
+  "PriorExModYear4": "20",
+  "PriorExMod4": "59",
+  "GoogleSearch": "0",
+  "CopyPasteURL": "http://www.google.com/search?q=D.+R.+KLASSEN+PACKING+INC+REEDLEY+CA+93654+(manta+%7c+buzzfile)",
+  "officers": [
+    {
+      "PersonID": "G4367939130675945306",
+      "FirstName": "Don",
+      "LastName": "Klassen",
+      "fullName": "DON R KLASSEN",
+      "contactTypeDesc": "OFFICER 6",
+      "City": "Reedley",
+      "State": "CA",
+      "postalCode": "93654",
+      "Street": "6054 Avenue 426",
+      "addressTypeDesc": "OFFICER 6 ADDRESS",
+      "Addresses": { "addressLine2": "Reedley, CA" },
+      "contactDetails": {
+        "phones": [
+          "(559) 318-0119",
+          "(559) 638-0126",
+          "(559) 643-8169",
+          "(209) 638-0126",
+          "(559) 591-7578"
+        ],
+        "emails": ["maryannklassen@live.com", "donaldklassen@gmail.com"],
+        "addresses": {
+          "street": "6054 Avenue 426",
+          "city": "Reedley",
+          "state": "CA",
+          "zip": "93654"
+        }
+      }
+    },
+    {
+      "PersonID": "G-2292154888853982613",
+      "FirstName": "Mark",
+      "LastName": "Edwards",
+      "fullName": "MARK D EDWARDS",
+      "contactTypeDesc": "OFFICER 6",
+      "City": "Reedley",
+      "State": "CA",
+      "postalCode": "93654",
+      "Street": "1015 G",
+      "addressTypeDesc": "OFFICER 6 ADDRESS",
+      "Addresses": { "addressLine2": "Reedley, CA" },
+      "contactDetails": {
+        "phones": [
+          "(559) 741-9527",
+          "(559) 299-7449",
+          "(559) 638-1454",
+          "(559) 799-1357",
+          "(559) 799-5597"
+        ],
+        "emails": ["mark@markdedwards.com"],
+        "addresses": {
+          "street": "5336 Horseshoe Bend Ave",
+          "city": "Clovis",
+          "state": "CA",
+          "zip": "93619"
+        }
+      }
+    }
+  ]
+}
+
+]

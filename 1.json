@@ -1,0 +1,76 @@
+{
+  "Bureau Number": "19137",
+  "Primary Names": ["GASKET MANUFACTURING CO INC"],
+  "CopyPasteURLs": [
+    "http://www.google.com/search?q=GASKET+MANUFACTURING+CO+INC+SANTA+FE+SPRINGS+CA+90670+(manta+%7c+buzzfile)",
+    "http://www.google.com/search?q=GASKET+MANUFACTURING+ENGINEERING+COMPANY+SANTA+FE+SPRINGS+CA+90670+(manta+%7c+buzzfile)",
+    "http://www.google.com/search?q=GASKET+MANUFACTURING+ENGINEERING+COMPANY%2c+INC.+SANTA+FE+SPRINGS+CA+90670+(manta+%7c+buzzfile)",
+    "http://www.google.com/search?q=GASKET+MANUFACTURING+ENGINEERING%2c+INC.+SANTA+FE+SPRINGS+CA+90670+(manta+%7c+buzzfile)"
+  ],
+  "Primary Name": "GASKET MANUFACTURING CO INC",
+  "Street Address": "8427 SECURA WAY",
+  "City": "SANTA FE SPRINGS",
+  "State": "CA",
+  "Zip Code": "90670",
+  "County": "Los Angeles County",
+  "Governing Class": "4983",
+  "Description": "GASKET MFG",
+  "Ex Mod Year": "24",
+  "ExMod": "83",
+  "Updated On": "9/21/23",
+  "ExMod Change": "-56",
+  "Insurer Name": "Arch Insurance Company",
+  "Insurer Group": "Arch Ins Grp",
+  "Advisory Rate": "5.35",
+  "Rate Eff Date": "9/1/23",
+  "SubClass1": "8742",
+  "Desc1": "SALESPERSONS-OUTSIDE",
+  "SubClass2": "8810",
+  "Desc2": "CLERICAL OFFICE EMPLOYEES",
+  "PriorExModYear1": "23",
+  "PriorExMod1": "139",
+  "PriorExModYear2": "22",
+  "PriorExMod2": "127",
+  "PriorExModYear3": "21",
+  "PriorExMod3": "154",
+  "PriorExModYear4": "20",
+  "PriorExMod4": "196",
+  "GoogleSearch": "0",
+  "CopyPasteURL": "http://www.google.com/search?q=GASKET+MANUFACTURING+CO+INC+SANTA+FE+SPRINGS+CA+90670+(manta+%7c+buzzfile)",
+  "officers": [
+    {
+      "PersonID": "G-6099321382576905520",
+      "FirstName": "Ramon",
+      "LastName": "Cardenas",
+      "Street": "9526 Samoline",
+      "City": "Downey",
+      "State": "CA",
+      "postalCode": "90240",
+      "fullName": "RAMON CARDENAS",
+      "Addresses": { "addressLine2": "Downey, CA" },
+      "addressHash": "684167217475419301",
+      "startDate": "20211029",
+      "contactDetails": {
+        "phones": [
+          "(562) 927-8701",
+          "(602) 702-9504",
+          "(562) 630-7868",
+          "(602) 702-7619",
+          "(562) 234-1915"
+        ],
+        "emails": [
+          "danielr.cardenas96@yahoo.com",
+          "mariacardenas311@gmail.com",
+          "cardenase1313@yahoo.com"
+        ],
+        
+        "addresses": {
+          "street": "4802 W Monte Vista Rd",
+          "city": "Phoenix",
+          "state": "AZ",
+          "zip": "85035"
+        }
+      }
+    }
+  ]
+}
