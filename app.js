@@ -494,6 +494,10 @@ const add_finalObj_inAirTable = function (finalObj) {
           //  return;
         }
         console.log('Company and Officer data added successfully.');
+        console.log("BusinessV2SearchIndexCounter: "+BusinessV2SearchIndexCounter);
+        BusinessV2SearchIndexCounter = 0;
+        console.log("ContactEnrichIndex: "+ContactEnrichIndex);
+        ContactEnrichIndex = 0;
       });
     }
 
@@ -3735,10 +3739,7 @@ app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
 
       console.log("filtred data ready for reading ....")
       readDataFromFS_ToAirTable(finalFilteredCompanyData_filePath, res);
-      console.log("BusinessV2SearchIndexCounter: "+BusinessV2SearchIndexCounter);
-      BusinessV2SearchIndexCounter = 0;
-      console.log("ContactEnrichIndex: "+ContactEnrichIndex);
-      ContactEnrichIndex = 0;
+
 
     } catch (err) {
       console.error(`Error parsing JSON: ${err}`);
