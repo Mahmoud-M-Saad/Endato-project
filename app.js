@@ -10,7 +10,6 @@ const multer = require('multer');
 app.use(express.json());
 app.use(cors());
 
-
 const uploadFile = multer({
   storage: multer.diskStorage({
     destination: "./",
@@ -51,13 +50,12 @@ function saveDataInFS(filePath, dataAsString) {
     }
   });
 
-}
-
+};
 
 const uniqueNamesRegex = /[.,:;]/g;
 const uniqueNames = function (inputText) {
   return inputText.replace(uniqueNamesRegex, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
-}
+};
 
 const removeDuplicatesAndFilter_ByState = function (dataWithUniqueNames) {
   const finalFilteredCompanyData = [];
@@ -87,7 +85,7 @@ const removeDuplicatesAndFilter_ByState = function (dataWithUniqueNames) {
   // console.log(resultArray);
 
   return resultArray;
-}
+};
 
 const filterOfficersData = function (data) {
   // filter steps =>  first remove doubliactes of addressHash , then sort to the netwest date of startDate , 
@@ -125,7 +123,7 @@ const filterOfficersData = function (data) {
 
   return filteredResult;
 
-}
+};
 
 const collect_officers_from_eachbusinessSearch = function (businessV2res) {
   //businessV2res => is my res.data
@@ -187,7 +185,7 @@ const collect_officers_from_eachbusinessSearch = function (businessV2res) {
   //  return filterOfficersData(idsList_per_officer).slice(0, 5);
   return idsList_per_officer;
 
-}
+};
 function collect_officers_from_NewResponse(newres) {
   let businessV2RecordsList = newres.businessV2Records;
   let officersList = []
@@ -244,7 +242,7 @@ function collect_officers_from_NewResponse(newres) {
   //  console.log('officersList: ', officersList);
   return officersList;
 
-}
+};
 
 function filterEmails_Phones(data) {
   if (!data.person) {
@@ -315,8 +313,6 @@ function filterEmails_Phones(data) {
 };
 
 async function searchForConacts(officersListArr) {
-
-
   let officersList = officersListArr
   console.log("my obj befor contact search", officersList)
   for (let i = 0; i < officersList.length; i++) {
@@ -394,8 +390,7 @@ async function searchForConacts(officersListArr) {
 
   }
   return officersList;
-}
-
+};
 
 const add_finalObj_inAirTable = function (finalObj) {
   const YOUR_BASE_ID = 'app86hwp15Ka1dXEC';
@@ -506,12 +501,10 @@ const add_finalObj_inAirTable = function (finalObj) {
     // return;
   });
 
-}
+};
 
 async function step2final_SearchContact(BusinessNames, res) {
   for (let i = 0; i < BusinessNames.length; i++) {
- 
-
      // await new Promise((resolve) => setTimeout(resolve, 1000)); // Add a delay of 300ms
       //  console.log("new Search busines ❤️❤️ :", i);
       setTimeout(async()=>{
@@ -3708,13 +3701,9 @@ let test = {
       "inputErrors": [],
       "warnings": []
   }
-}
+};
 //let x = collect_officers_from_eachbusinessSearch(test)
 //console.log(x)
-
-app.get('/test',(req,res)=>{
-    res.json("The test work true!");
-})
 
 app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
   const filename = req.file.path;
@@ -3757,8 +3746,3 @@ app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
 app.listen(3000, () => {
   console.log("Welcome Form Server!");
 });
-
-
-
-
-
