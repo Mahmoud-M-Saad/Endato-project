@@ -9,7 +9,10 @@ const multer = require('multer');
 
 app.use(express.json());
 app.use(cors());
-let indexCounter = 0;
+
+let BusinessV2SearchIndexCounter = 0;
+let ContactEnrichIndex = 0;
+
 const uploadFile = multer({
   storage: multer.diskStorage({
     destination: "./",
@@ -375,7 +378,7 @@ async function searchForConacts(officersListArr) {
           officersList[i].contactDetails = filterEmails_Phones(response.data)
           //  console.log("officersList after enrich search", officersList)
   
-  
+          
   
         } catch (error) {
           console.error("Error From SearchContact => enrich search :", error.message);
@@ -386,9 +389,10 @@ async function searchForConacts(officersListArr) {
 
     },i*1000)
 
-
+    ContactEnrichIndex += 1 
 
   }
+
   return officersList;
 };
 
@@ -534,7 +538,7 @@ async function step2final_SearchContact(BusinessNames, res) {
     
               })
               console.log("😒😒😒bus end search")
-              indexCounter += 1;
+              BusinessV2SearchIndexCounter += 1;
               if (response.data["businessV2Records"].length === 0) {
                 tempObj.result = `no business result for ${BusinessNames[i]["Primary Names"][x]} `;
                 console.log("🤦‍♂️🤦‍♂️", " empty [] in business search", tempObj);
@@ -3731,8 +3735,10 @@ app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
 
       console.log("filtred data ready for reading ....")
       readDataFromFS_ToAirTable(finalFilteredCompanyData_filePath, res);
-      console.log(indexCounter);
-      indexCounter = 0;
+      console.log("BusinessV2SearchIndexCounter: "+BusinessV2SearchIndexCounter);
+      BusinessV2SearchIndexCounter = 0;
+      console.log("ContactEnrichIndex: "+ContactEnrichIndex);
+      ContactEnrichIndex = 0;
 
     } catch (err) {
       console.error(`Error parsing JSON: ${err}`);
