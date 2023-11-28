@@ -9,7 +9,7 @@ const multer = require('multer');
 
 app.use(express.json());
 app.use(cors());
-
+let indexCounter = 0;
 const uploadFile = multer({
   storage: multer.diskStorage({
     destination: "./",
@@ -534,7 +534,7 @@ async function step2final_SearchContact(BusinessNames, res) {
     
               })
               console.log("😒😒😒bus end search")
-    
+              indexCounter += 1;
               if (response.data["businessV2Records"].length === 0) {
                 tempObj.result = `no business result for ${BusinessNames[i]["Primary Names"][x]} `;
                 console.log("🤦‍♂️🤦‍♂️", " empty [] in business search", tempObj);
@@ -3731,6 +3731,8 @@ app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
 
       console.log("filtred data ready for reading ....")
       readDataFromFS_ToAirTable(finalFilteredCompanyData_filePath, res);
+      console.log(indexCounter);
+      indexCounter = 0;
 
     } catch (err) {
       console.error(`Error parsing JSON: ${err}`);
