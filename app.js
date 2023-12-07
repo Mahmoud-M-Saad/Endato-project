@@ -2,11 +2,20 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
+require('dotenv').config();
+
 const cors = require('cors');
 const multer = require('multer');
 const axios = require('axios');
 const util = require('util');
 const Airtable = require('airtable');
+
+const galaxy_name = process.env.galaxy_name;
+const galaxy_password = process.env.galaxy_password;
+const YOUR_BASE_ID = process.env.YOUR_BASE_ID;
+const tabelIDofficers = process.env.tabelIDofficers;
+const tabelIDcompanies = process.env.tabelIDcompanies;
+const YOUR_API_KEY = process.env.YOUR_API_KEY;
 
 app.use(express.json());
 app.use(cors());
@@ -90,7 +99,6 @@ const filterOfficersData = function (data) {
 };
 
 const collect_officers_from_eachbusinessSearch = function (businessV2res) {
-
   //! here i collect only officers from each business searh
   let businessV2RecordsList = businessV2res.businessV2Records;
   let idsList_per_officer = [];
@@ -249,8 +257,8 @@ async function searchForConacts(officersListArr) {
             url: 'https://devapi.endato.com/Contact/Id',
             headers: {
               accept: 'application/json',
-              'galaxy-ap-name': '12b8b798-8854-49ac-878c-48ac1d6bdec6',
-              'galaxy-ap-password': '53fa790fcb4c412b86278d941f25eec7',
+              'galaxy-ap-name': galaxy_name,
+              'galaxy-ap-password': galaxy_password,
               'galaxy-search-type': 'DevAPIContactID',
               'content-type': 'application/json',
               'galaxy-client-type': 'DevAPIContactEnrich',
@@ -272,8 +280,8 @@ async function searchForConacts(officersListArr) {
             url: 'https://devapi.endato.com/Contact/Enrich',
             headers: {
               accept: 'application/json',
-              'galaxy-ap-name': '12b8b798-8854-49ac-878c-48ac1d6bdec6',
-              'galaxy-ap-password': '53fa790fcb4c412b86278d941f25eec7',
+              'galaxy-ap-name': galaxy_name,
+              'galaxy-ap-password': galaxy_password,
               'galaxy-search-type': 'DevAPIContactEnrich',
               'content-type': 'application/json',
               'galaxy-client-type': 'DevAPIContactEnrich',
@@ -299,15 +307,6 @@ async function searchForConacts(officersListArr) {
 };
 
 const add_finalObj_inAirTable = function (finalObj) {
-  const YOUR_BASE_ID = 'app86hwp15Ka1dXEC';
-  const tabelIDofficers = 'tblKUidlysKdb3y0j';
-  const tabelIDcompanies = 'tblBa05Kbq4DKt6bb';
-  //! Clint
-  // const YOUR_API_KEY = 'pat5Agjq0EkAWWhWz.ed5dc3086cdf35cc71c5b8d0fd7f75a03edce140385958ea527b4d18c63a3b12';
-  // const YOUR_API_KEY = 'patSavjYsBOdkbgnU.ccda4116f516d8ed0620fb934afb552c34b7ecc28f6b1895fbf51470939fae31';
-  const YOUR_API_KEY = 'pattzsOCwdz9aBKS2.9e129d222c8a8a3c387425be4fbc11987b80905765860c576d7151b360d32576';
-  //! MSaad
-  // const YOUR_API_KEY = 'patiSeXfa1Dl8vEas.0180e8500f631d1f22c3c8405ea91162139902ea3ff627c54bc01537604fe0d5';
   const base = new Airtable({ apiKey: YOUR_API_KEY }).base(YOUR_BASE_ID);
   const PrimaryNames = finalObj['Primary Names']
   const CopyPasteURLs = finalObj['CopyPasteURLs']
@@ -421,8 +420,8 @@ async function step2final_SearchContact(BusinessNames, res) {
                 url: 'https://devapi.endato.com/BusinessV2Search',
                 headers: {
                   accept: 'application/json',
-                  'galaxy-ap-name': '12b8b798-8854-49ac-878c-48ac1d6bdec6',
-                  'galaxy-ap-password': '53fa790fcb4c412b86278d941f25eec7',
+                  'galaxy-ap-name': galaxy_name,
+                  'galaxy-ap-password': galaxy_password,
                   'galaxy-search-type': 'BusinessV2',
                   'content-type': 'application/json',
                   'galaxy-client-type': 'DevAPIContactEnrich',
