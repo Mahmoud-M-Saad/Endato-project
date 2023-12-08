@@ -1,6 +1,6 @@
 const Airtable = require('airtable');
 const axios = require('axios');
-const filterController = require('./Controllers/filterController');
+const filterController = require('./filterController');
 
 require('dotenv').config();
 const galaxy_name = process.env.galaxy_name;
