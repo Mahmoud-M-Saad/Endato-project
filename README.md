@@ -1,3 +1,5 @@
 # Integration From Endato To Airtable (with filters)
 
-It is full stack web application that's the user upload xml file in the front end then the webhook make its filters then add it in airtable
+This is a full-stack web application designed for seamless integration between Endato and Airtable.
+Users can upload XML files through the frontend, triggering a webhook process that applies filters before adding the data to Airtable.
+(For more information return to the client).
