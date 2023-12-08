@@ -1,5 +1,6 @@
 const Airtable = require('airtable');
 const axios = require('axios');
+const filterController = require('./Controllers/filterController');
 
 require('dotenv').config();
 const galaxy_name = process.env.galaxy_name;
@@ -253,7 +254,7 @@ function collect_officers_from_NewResponse(newres) {
     return officersList;
 };
 
-exports.searchForConacts = async function (officersListArr) {
+async function searchForConacts (officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
     for (let i = 0; i < officersList.length; i++) {
@@ -381,8 +382,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                     .filterOfficersData(OfficersDataList)
                     .slice(0, 5)
                 tempObj.officers = OfficersDataList;
-                endatoController
-                    .searchForConacts(tempObj.officers)
+                searchForConacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
@@ -395,8 +395,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                 tempObj.result = "There is no officers results ";
                 console.log("😒😒 officers are empty array ... ")
                 tempObj.officers = [];
-                endatoController
-                    .searchForConacts(tempObj.officers)
+                searchForConacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
