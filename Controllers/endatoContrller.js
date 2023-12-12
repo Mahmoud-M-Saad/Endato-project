@@ -222,8 +222,9 @@ function collect_officers_from_NewResponse(newres) {
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
             let addresses = newBusinessFilings[j].addresses
-            let BusinessPhone = newBusinessFilings[j].phones[0].phoneNumber;
-            console.log("*/*/*/*BusinessPhone: "+BusinessPhone);
+            console.log(newBusinessFilings[j].phones);
+            // let BusinessPhone = newBusinessFilings[j].phones[0].phoneNumber ;
+            // console.log("*/*/*/*BusinessPhone: "+BusinessPhone);
             let tempOfficerObj = {};
             contacts
                 .filter((item) => item.contactTypeDesc.includes('OFFICER'))
@@ -248,7 +249,7 @@ function collect_officers_from_NewResponse(newres) {
                         "addressLine2": `${item.city}, ${item.state}`
                     }
                 });
-            officersList.push(BusinessPhone)
+            // officersList.push(BusinessPhone)
             if (tempOfficerObj != {}) {
                 officersList.push(tempOfficerObj)
             }
@@ -373,9 +374,9 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                             searchBusinssRes = collect_officers_from_NewResponse(response.data)
                         }
                         console.log("*/*/*tempObj: "+ tempObj);
-                        console.log("*/*/*searchBusinssRes: "+ searchBusinssRes);
-                        console.log("*/*/*searchBusinssRes.BusinessPhone: "+ searchBusinssRes.BusinessPhone);
-                        tempObj.push(searchBusinssRes.BusinessPhone)
+                        // console.log("*/*/*searchBusinssRes: "+ searchBusinssRes);
+                        // console.log("*/*/*searchBusinssRes.BusinessPhone: "+ searchBusinssRes.BusinessPhone);
+                        // tempObj.push(searchBusinssRes.BusinessPhone)
                         tempObj
                             .officers
                             .push(searchBusinssRes)
