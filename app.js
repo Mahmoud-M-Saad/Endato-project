@@ -49,6 +49,9 @@ async function readDataFromFS_ToAirTable(filePath, res) {
 
 app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
     const filename = req.file.path;
+    console.log("original: "+req.file.originalname);
+    console.log("filename: "+req.file.filename);
+    console.log("All: "+req.file);
     console.log("fileUploaded :📢📢📢 ", filename)
     fs.readFile(filename, 'utf8', (err, fileData) => {
         if (err) {
