@@ -222,7 +222,7 @@ function collect_officers_from_NewResponse(newres) {
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
             let addresses = newBusinessFilings[j].addresses
-            console.log(newBusinessFilings[j].phones);
+            console.log("phones: "+ newBusinessFilings[j].phones);
             // let BusinessPhone = newBusinessFilings[j].phones[0].phoneNumber ;
             // console.log("*/*/*/*BusinessPhone: "+BusinessPhone);
             let tempOfficerObj = {};
@@ -306,14 +306,19 @@ async function searchForConacts (officersListArr) {
                             "FirstName": `${targetOfficer['FirstName']}`,
                             "LastName": `${targetOfficer['LastName']}`,
                             "Address": {
-
                                 "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
                             }
                         }
                     })
+                    console.log("From Enrich");
+                    console.log(response.data);
                     officersList[i].contactDetails = filterController.filterEmails_Phones(
                         response.data
                     )
+                    console.log("filterCont");
+                    console.log(filterController.filterEmails_Phones(
+                        response.data
+                    ));
                 } catch (error) {
                     console.error("Error From SearchContact => enrich search :", error.message);
                 };
