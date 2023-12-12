@@ -249,7 +249,7 @@ function collect_officers_from_NewResponse(newres) {
                         "addressLine2": `${item.city}, ${item.state}`
                     }
                 });
-            // officersList.push(BusinessPhone)
+            officersList.push(BusinessPhone)
             if (tempOfficerObj != {}) {
                 officersList.push(tempOfficerObj)
             }
@@ -310,15 +310,9 @@ async function searchForConacts (officersListArr) {
                             }
                         }
                     })
-                    console.log("From Enrich");
-                    console.log(response.data);
                     officersList[i].contactDetails = filterController.filterEmails_Phones(
                         response.data
                     )
-                    console.log("filterCont");
-                    console.log(filterController.filterEmails_Phones(
-                        response.data
-                    ));
                 } catch (error) {
                     console.error("Error From SearchContact => enrich search :", error.message);
                 };
@@ -357,6 +351,8 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         }
                     })
                     console.log("😒😒😒bus end search")
+                    console.log("response.data");
+                    console.log(response.data);
                     BusinessV2SearchIndexCounter += 1;
                     if (response.data["businessV2Records"].length === 0) {
                         tempObj.result = `no business result for ${BusinessNames[i]["Primary Names"][x]} `;
@@ -378,7 +374,10 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                             console.log(response.data["businessV2Records"]);
                             searchBusinssRes = collect_officers_from_NewResponse(response.data)
                         }
-                        console.log("*/*/*tempObj: "+ tempObj);
+                        console.log("searchBusinssRes");
+                        console.log(searchBusinssRes);
+                        console.log("*/*/*tempObj: ");
+                        console.log(tempObj);
                         // console.log("*/*/*searchBusinssRes: "+ searchBusinssRes);
                         // console.log("*/*/*searchBusinssRes.BusinessPhone: "+ searchBusinssRes.BusinessPhone);
                         // tempObj.push(searchBusinssRes.BusinessPhone)
