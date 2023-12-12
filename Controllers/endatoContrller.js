@@ -352,7 +352,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                     })
                     console.log("😒😒😒bus end search")
                     console.log("response.data");
-                    console.log(response.data);
+                    console.log(response.data.businessV2Records[1].newBusinessFilings.phones);
                     BusinessV2SearchIndexCounter += 1;
                     if (response.data["businessV2Records"].length === 0) {
                         tempObj.result = `no business result for ${BusinessNames[i]["Primary Names"][x]} `;
