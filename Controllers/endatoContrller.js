@@ -358,15 +358,16 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         console.log("🤦‍♂️🤦‍♂️", " empty [] in business search", tempObj);
                     } else {
                         let searchBusinssRes;
+                        for (let x = 0; x < response.data["businessV2Records"].length; x++) {                          
                         if (
-                            response.data["businessV2Records"][0]['newBusinessFilings']
+                            response.data["businessV2Records"][x]['newBusinessFilings']
                                 ?.length === 0
                         ) {
                             console.log("📢📢📢usCorpFilings start ....")
                             searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data);
                         }
                         if (
-                            response.data["businessV2Records"][0]['usCorpFilings']
+                            response.data["businessV2Records"][x]['usCorpFilings']
                                 ?.length === 0
                         ) {
                             console.log("📢📢📢newBusinessFilings start ....")
@@ -376,8 +377,8 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         tempObj
                             .officers
                             .push(searchBusinssRes)
-                        console.log("📢📢📢📢📢📢📢📢📢 one after adding officers", tempObj)
-                    }
+                        console.log("📢📢📢📢📢📢📢📢📢 "+x+ "after adding officers", tempObj)
+                    }}
                 } catch (error) {
                     console.error("Error From Search business function :", error.message);
                 };
