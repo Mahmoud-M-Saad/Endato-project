@@ -351,7 +351,13 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         }
                     })
                     console.log("😒😒😒bus end search")
-                    console.log("response.data");
+                    console.log("response.data.businessV2Records");
+                    console.log(response.data.businessV2Records);
+                    console.log("response.data.businessV2Records[1]");
+                    console.log(response.data.businessV2Records[1]);
+                    console.log("response.data.businessV2Records[1].newBusinessFilings");
+                    console.log(response.data.businessV2Records[1].newBusinessFilings);
+                    console.log("response.data.businessV2Records[1].newBusinessFilings.phones");
                     console.log(response.data.businessV2Records[1].newBusinessFilings.phones);
                     BusinessV2SearchIndexCounter += 1;
                     if (response.data["businessV2Records"].length === 0) {
@@ -374,13 +380,6 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                             console.log(response.data["businessV2Records"]);
                             searchBusinssRes = collect_officers_from_NewResponse(response.data)
                         }
-                        console.log("searchBusinssRes");
-                        console.log(searchBusinssRes);
-                        console.log("*/*/*tempObj: ");
-                        console.log(tempObj);
-                        // console.log("*/*/*searchBusinssRes: "+ searchBusinssRes);
-                        // console.log("*/*/*searchBusinssRes.BusinessPhone: "+ searchBusinssRes.BusinessPhone);
-                        // tempObj.push(searchBusinssRes.BusinessPhone)
                         tempObj
                             .officers
                             .push(searchBusinssRes)

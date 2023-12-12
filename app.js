@@ -35,6 +35,7 @@ async function readDataFromFS_ToAirTable(filePath, res) {
         const data = await util.promisify(fs.readFile)(filePath, 'utf8');
         const jsonData = JSON.parse(data);
         console.log("📢📢📢📢", "data read ...");
+        console.log('jsonData: ', jsonData);
         // Perform the complex logic and searches using async/await
         await endatoController.step2final_SearchContact(jsonData, res);
         // After all operations are complete, send the response
@@ -48,8 +49,6 @@ async function readDataFromFS_ToAirTable(filePath, res) {
 
 app.post('/gettingData', uploadFile.single('jsonFile'), (req, res) => {
     const filename = req.file.path;
-    console.log("req.file...");
-    console.log(req.file);
     console.log("fileUploaded :📢📢📢 ", filename)
     fs.readFile(filename, 'utf8', (err, fileData) => {
         if (err) {
