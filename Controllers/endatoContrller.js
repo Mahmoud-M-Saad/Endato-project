@@ -472,12 +472,15 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
                             console.log(searchBusinssRes);
-                            tempObj.BusinessPhones = searchBusinssRes.busPhones;
+                            
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
                         }
-
+                        console.log("tempObj.BusinessPhones: "+ JSON.stringify(tempObj.BusinessPhones));
+                        if (tempObj.BusinessPhones){tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}else{
+                            tempObj.BusinessPhones = searchBusinssRes.busPhones
+                        };
                     }
                     console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
                     console.log(tempObj);
