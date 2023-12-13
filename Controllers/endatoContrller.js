@@ -150,7 +150,8 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         return []
     }
     console.log("businessV2RecordsList phones");
-    console.log(businessV2RecordsList[0].phones);
+    console.log(businessV2RecordsList[0]);
+    console.log(businessV2RecordsList);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
     if(businessV2RecordsList[0].phones || businessV2RecordsList[0].phones.length !== 0 ){
         busPhones.push(businessV2RecordsList[0].phones[0].phoneNumber);
@@ -230,7 +231,8 @@ function collect_officers_from_NewResponse(newres) {
     let officersList = []
     let busPhones = []
     console.log("businessV2RecordsList phones");
-    console.log(businessV2RecordsList[0].phones);
+    console.log(businessV2RecordsList[0]);
+    console.log(businessV2RecordsList);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
     if(businessV2RecordsList[0].phones || businessV2RecordsList[0].phones.length !== 0 ){
         busPhones.push(businessV2RecordsList[0].phones[0].phoneNumber);
