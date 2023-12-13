@@ -149,15 +149,14 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         return []
     }
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log("businessV2RecordsList: ");
-        console.log(businessV2RecordsList[i]);
-        let AllBusPhones = businessV2RecordsList[i].usCorpFilings[0].phones;
+        console.log("businessV2RecordsList.length: " + businessV2RecordsList[i].length);
+        let AllBusPhones = businessV2RecordsList[i].usCorpFilings[0] || null;
         let busPhones = []
-        console.log("phones: "+AllBusPhones);
         //? If Not null and not empty, so push the 1st & 2nd numbers  
-        if (AllBusPhones !== null && AllBusPhones !== undefined && Array.isArray(AllBusPhones) && AllBusPhones.length !== 0){
-            busPhones.push(AllBusPhones[0].phoneNumber);
-            busPhones.push(AllBusPhones[1].phoneNumber);
+        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0){
+            console.log("phones: "+AllBusPhones.phones);
+            busPhones.push(AllBusPhones.phones[0].phoneNumber);
+            busPhones.push(AllBusPhones.phones[1].phoneNumber);
         }
         console.log("busPhones: "+ busPhones);
         let targetResObject = businessV2RecordsList[i];
@@ -235,15 +234,14 @@ function collect_officers_from_NewResponse(newres) {
         return []
     }
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log("businessV2RecordsList");
-        console.log(businessV2RecordsList[i]);
-        let AllBusPhones = businessV2RecordsList[0].newBusinessFilings[0].phones;
+        console.log("businessV2RecordsList.length: " + businessV2RecordsList[i].length);
+        let AllBusPhones = businessV2RecordsList[i].newBusinessFilings[0];
         let busPhones = []
-        console.log("phones: "+AllBusPhones);
         //? If Not null and not empty, so push the 1st & 2nd numbers  
-        if (AllBusPhones !== null && AllBusPhones !== undefined && Array.isArray(AllBusPhones) && AllBusPhones.length !== 0){
-            busPhones.push(AllBusPhones[0].phoneNumber);
-            busPhones.push(AllBusPhones[1].phoneNumber);
+        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0){
+            console.log("phones: "+AllBusPhones.phones);
+            busPhones.push(AllBusPhones.phones[0].phoneNumber);
+            busPhones.push(AllBusPhones.phones[1].phoneNumber);
         }  
         console.log("busPhones: "+ busPhones);
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
