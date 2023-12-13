@@ -84,18 +84,10 @@ function add_finalObj_inAirTable(finalObj) {
                                 'Full Name': officer['fullName'],
                                 // 'Street': officer['Street'], 'City': officer['City'], 'State':
                                 // officer['State'], 'postal/zip code': officer['postalCode'],
-                                'Street': officer['contactDetails']
-                                    ?.addresses
-                                        ?.street,
-                                'City': officer['contactDetails']
-                                    ?.addresses
-                                        ?.city,
-                                'State': officer['contactDetails']
-                                    ?.addresses
-                                        ?.state,
-                                'postal/zip code': officer['contactDetails']
-                                    ?.addresses
-                                        ?.zip,
+                                'Street': officer['Street'],
+                                'City': officer['City'],
+                                'State': officer['State'],
+                                'postal/zip code': officer['postalCode'],
                                 'phone 1': officer['contactDetails']
                                     ?.phones[0],
                                 'phone 2': officer['contactDetails']
