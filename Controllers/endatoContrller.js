@@ -143,21 +143,24 @@ function add_finalObj_inAirTable(finalObj) {
 function collect_officers_from_eachbusinessSearch(businessV2res) {
     //! here i collect only officers from each business searh
     let businessV2RecordsList = businessV2res.businessV2Records;
+    console.log("businessV2RecordsList");
+    console.log(businessV2RecordsList);
     let idsList_per_officer = [];
-    let busPhones = [];
     if (businessV2RecordsList.length === 0) {
         console.log("empty response for business search")
         return []
     }
-    console.log("businessV2RecordsList phones");
-    console.log(businessV2RecordsList[0]);
-    console.log(businessV2RecordsList);
+    let AllBusPhones = businessV2RecordsList[0].usCorpFilings[0].phones;
+    let busPhones = []
+    console.log("phones: "+AllBusPhones);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
-    if(businessV2RecordsList[0].phones || businessV2RecordsList[0].phones.length !== 0 ){
-        busPhones.push(businessV2RecordsList[0].phones[0].phoneNumber);
-        busPhones.push(businessV2RecordsList[0].phones[1].phoneNumber);
+    if(AllBusPhones || AllBusPhones.length !== 0 ){
+        busPhones.push(AllBusPhones[0].phoneNumber);
+        busPhones.push(AllBusPhones[1].phoneNumber);
     }
     console.log("busPhones: "+ busPhones);
+    console.log("businessV2RecordsList: ");
+    console.log(businessV2RecordsList);
     for (let i = 0; i < businessV2RecordsList.length; i++) {
         let targetResObject = businessV2RecordsList[i];
         let target_usCorpFilings_list = targetResObject.usCorpFilings
@@ -229,14 +232,15 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
 function collect_officers_from_NewResponse(newres) {
     let businessV2RecordsList = newres.businessV2Records;
     let officersList = []
-    let busPhones = []
-    console.log("businessV2RecordsList phones");
-    console.log(businessV2RecordsList[0]);
+    console.log("businessV2RecordsList");
     console.log(businessV2RecordsList);
+    let AllBusPhones = businessV2RecordsList[0].newBusinessFilings[0].phones;
+    let busPhones = []
+    console.log("phones: "+AllBusPhones);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
-    if(businessV2RecordsList[0].phones || businessV2RecordsList[0].phones.length !== 0 ){
-        busPhones.push(businessV2RecordsList[0].phones[0].phoneNumber);
-        busPhones.push(businessV2RecordsList[0].phones[1].phoneNumber);
+    if(AllBusPhones || AllBusPhones.length !== 0 ){
+        busPhones.push(AllBusPhones[0].phoneNumber);
+        busPhones.push(AllBusPhones[1].phoneNumber);
     }
     console.log("busPhones: "+ busPhones);
     console.log("businessV2RecordsList: ");
