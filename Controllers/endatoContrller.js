@@ -329,8 +329,6 @@ async function searchForConacts (officersListArr) {
     for (let i = 0; i < officersList.length; i++) {
         setTimeout(async () => {
             let targetOfficer = officersList[i];
-            console.log("targetOfficer...");
-            console.log(targetOfficer);
             if (officersList[i]["PersonID"] !== null) {
                 try {
                     const response = await axios.request({
@@ -353,6 +351,8 @@ async function searchForConacts (officersListArr) {
                     );
                     console.log("FinalcontactDetails["+i+"]");
                     console.log(FinalcontactDetails);
+                    console.log("officersList["+i);
+                    console.log(officersList[i]);
                     officersList[i].contactDetails = FinalcontactDetails
                 } catch (error) {
                     console.error("Error From SearchContact=> id search :", error.message);
