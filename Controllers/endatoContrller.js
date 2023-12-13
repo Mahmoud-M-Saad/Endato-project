@@ -239,7 +239,6 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
             .log("End of businessV2RecordsList["+i+"]");
     }
     console.log("officersList.len: "+officersList.length);
-    officersList.push(busPhones)
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
     return officersList ;
@@ -315,7 +314,6 @@ function collect_officers_from_NewResponse(newres) {
         .log("End of businessV2RecordsList["+i+"]");
     }
     console.log("officersList.length: "+ officersList.length);
-    officersList.push(busPhones)
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
     return officersList;
