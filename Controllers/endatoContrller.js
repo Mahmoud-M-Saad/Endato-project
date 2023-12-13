@@ -350,35 +350,37 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 .State}`
                         }
                     })
-                    console.log("😒😒😒bus end search")
-                    console.log(response.data.businessV2Records);
+                    console.log("😒😒😒bus end search and it's response length: "+response.data.businessV2Records.length)
                     BusinessV2SearchIndexCounter += 1;
                     if (response.data["businessV2Records"].length === 0) {
                         tempObj.result = `no business result for ${BusinessNames[i]["Primary Names"][x]} `;
                         console.log("🤦‍♂️🤦‍♂️", " empty [] in business search", tempObj);
                     } else {
                         let searchBusinssRes;
-                        for (let x = 0; x < response.data["businessV2Records"].length; x++) {                          
-                        if (
-                            response.data["businessV2Records"][x]['newBusinessFilings']
-                                ?.length === 0
-                        ) {
-                            console.log("📢📢📢usCorpFilings start ....")
-                            searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data);
+                        for (let z = 0; z < response.data["businessV2Records"].length; z++) {                        
+                            if (
+                                response.data["businessV2Records"][z]['newBusinessFilings']
+                                    ?.length === 0
+                            ) {
+                                console.log("📢📢📢usCorpFilings start ....")
+                                console.log(response.data["businessV2Records"][z]['usCorpFilings']);
+                                searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data);
+                            }
+                            if (
+                                response.data["businessV2Records"][z]['usCorpFilings']
+                                    ?.length === 0
+                            ) {
+                                console.log("📢📢📢newBusinessFilings start ....")
+                                console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
+                                searchBusinssRes = collect_officers_from_NewResponse(response.data)
+                            }
+                            tempObj
+                                .officers
+                                .push(searchBusinssRes)
+                            }                        
                         }
-                        if (
-                            response.data["businessV2Records"][x]['usCorpFilings']
-                                ?.length === 0
-                        ) {
-                            console.log("📢📢📢newBusinessFilings start ....")
-                            console.log(response.data["businessV2Records"]);
-                            searchBusinssRes = collect_officers_from_NewResponse(response.data)
-                        }
-                        tempObj
-                            .officers
-                            .push(searchBusinssRes)
-                        console.log("📢📢📢📢📢📢📢📢📢 "+x+ "after adding officers", tempObj)
-                    }}
+                        console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
+                        console.log(tempObj);
                 } catch (error) {
                     console.error("Error From Search business function :", error.message);
                 };
