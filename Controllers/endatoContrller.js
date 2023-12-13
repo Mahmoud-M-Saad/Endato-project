@@ -145,6 +145,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     //! here i collect only officers from each business searh
     let businessV2RecordsList = businessV2res.businessV2Records;
     let officersList = [];
+    let busPhones = [];
     if (businessV2RecordsList.length === 0) {
         console.log("empty response for business search")
         return []
@@ -155,8 +156,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     for (let i = 0; i < businessV2RecordsList.length; i++) {
         let AllBusPhones = businessV2RecordsList[i]
             ?.usCorpFilings
-                ?.[0];
-        let busPhones = [];
+                ?.[0];        
         if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
             if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
                 console.log("phones: " + AllBusPhones.phones);
@@ -241,13 +241,14 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     console.log("officersList.len: "+officersList.length);
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return officersList ;
+    return {officersList,busPhones} ;
 };
 
 //! 02-newBusinessFilings
 function collect_officers_from_NewResponse(newres) {
     let businessV2RecordsList = newres.businessV2Records;
-    let officersList = []
+    let officersList = [];
+    let busPhones = [];
     if (businessV2RecordsList.length === 0) {
         console.log("empty response for business search")
         return []
@@ -259,7 +260,7 @@ function collect_officers_from_NewResponse(newres) {
         let AllBusPhones = businessV2RecordsList[i]
             ?.newBusinessFilings
                 ?.[0];
-        let busPhones = [];
+        
         // Check if AllBusPhones is not undefined and has the phones property
         if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
             // Check if phones is an array and not empty
@@ -316,7 +317,7 @@ function collect_officers_from_NewResponse(newres) {
     console.log("officersList.length: "+ officersList.length);
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return officersList;
+    return { officersList,busPhones};
 };
 
 async function searchForConacts (officersListArr) {
@@ -347,8 +348,6 @@ async function searchForConacts (officersListArr) {
                     );
                     console.log("FinalcontactDetails["+i+"]");
                     console.log(FinalcontactDetails);
-                    console.log("officersList["+i);
-                    console.log(officersList[i]);
                     officersList[i].contactDetails = FinalcontactDetails
                     console.log("officersList["+i);
                     console.log(officersList[i]);
@@ -382,8 +381,6 @@ async function searchForConacts (officersListArr) {
                     )
                     console.log("FinalcontactDetails["+i+"]");
                     console.log(FinalcontactDetails);
-                    console.log("officersList["+i);
-                    console.log(officersList[i]);
                     officersList[i].contactDetails = FinalcontactDetails
                     console.log("officersList["+i);
                     console.log(officersList[i]);
@@ -394,6 +391,7 @@ async function searchForConacts (officersListArr) {
         }, i * 1000)
         ContactEnrichIndex += 1
     }
+    console.log(officersList);
     return officersList;
 };
 
@@ -449,9 +447,10 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
                             console.log(searchBusinssRes);
+                            tempObj.BusinessPhones = searchBusinssRes.busPhones
                             tempObj
                                 .officers
-                                .push(searchBusinssRes)
+                                .push(searchBusinssRes.officersList)
                             }  
                                                   
                         }
