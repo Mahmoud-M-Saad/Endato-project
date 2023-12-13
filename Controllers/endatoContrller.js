@@ -69,7 +69,7 @@ function add_finalObj_inAirTable(finalObj) {
             console.log("finalObj.officer: ...");
             console.log(finalObj.officers);
             if (finalObj.officers.length > 0) {
-                for (let i = 0; i < array.length; i++) {
+                for (let i = 0; i < finalObj.officers.length; i++) {
                     const officers = finalObj
                         .officers[i]
                         .map((officer) => ({
