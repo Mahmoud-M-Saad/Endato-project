@@ -32,6 +32,8 @@ function add_finalObj_inAirTable(finalObj) {
                     'Bureau Number': finalObj['Bureau Number'],
                     // 'Primary Name': finalObj['Primary Name'],
                     'Company Names': companyNames,
+                    'Business Phones 1':finalObj['BusinessPhones'][0] || "No phone number provided",
+                    'Business Phones 2':finalObj['BusinessPhones'][1] || "No phone number provided",
                     'Street Address': finalObj['Street Address'],
                     'City': finalObj['City'],
                     'State': finalObj['State'],
@@ -322,7 +324,7 @@ function collect_officers_from_NewResponse(newres) {
 
 async function searchForConacts (officersListArr) {
     let officersList = officersListArr
-    console.log("my obj befor contact search", officersList)
+    console.log("🎶👍🎶 Obj befor contact search", officersList)
     for (let i = 0; i < officersList.length; i++) {
         setTimeout(async () => {
             let targetOfficer = officersList[i];
@@ -343,12 +345,9 @@ async function searchForConacts (officersListArr) {
                             "PersonID": `${targetOfficer.PersonID}`
                         }
                     })
-                    let FinalcontactDetails = filterController.filterEmails_Phones(
+                    officersList[i].contactDetails = filterController.filterEmails_Phones(
                         response.data
                     );
-                    console.log("FinalcontactDetails["+i+"]");
-                    console.log(FinalcontactDetails);
-                    officersList[i].contactDetails = FinalcontactDetails
                     console.log("officersList["+i);
                     console.log(officersList[i]);
                 } catch (error) {
@@ -376,21 +375,19 @@ async function searchForConacts (officersListArr) {
                             }
                         }
                     })
-                    let FinalcontactDetails = filterController.filterEmails_Phones(
+                    officersList[i].contactDetails = filterController.filterEmails_Phones(
                         response.data
                     )
-                    console.log("FinalcontactDetails["+i+"]");
-                    console.log(FinalcontactDetails);
-                    officersList[i].contactDetails = FinalcontactDetails
                     console.log("officersList["+i);
                     console.log(officersList[i]);
                 } catch (error) {
                     console.error("Error From SearchContact => enrich search :", error.message);
                 };
             }
-        }, i * 1000)
+        }, 2000)
         ContactEnrichIndex += 1
     }
+    console.log("🎶👍🎶 Obj After contact search");
     console.log(officersList);
     return officersList;
 };
