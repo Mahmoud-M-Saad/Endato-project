@@ -399,7 +399,7 @@ async function searchForConacts (officersListArr) {
 
 exports.step2final_SearchContact = async function (BusinessNames, res) {
     for (let i = 0; i < BusinessNames.length; i++) {
-        setTimeout(async () => {
+        // setTimeout(async () => {
             let tempObj = BusinessNames[i]
             tempObj.officers = []
             for (let x = 0; x < BusinessNames[i]["Primary Names"].length; x++) {
@@ -490,7 +490,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         console.log("err for new function of getting contacts", err.message)
                     })
                 }
-        }, i * 1000)
+        // }, i * 1000)
     }
     res
         .status(200)
