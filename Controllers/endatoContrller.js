@@ -327,7 +327,7 @@ async function searchForConacts (officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
     for (let i = 0; i < officersList.length; i++) {
-        setTimeout(async () => {
+        // setTimeout(async () => {
             let targetOfficer = officersList[i];
             if (officersList[i]["PersonID"] !== null) {
                 try {
@@ -395,7 +395,7 @@ async function searchForConacts (officersListArr) {
                     console.error("Error From SearchContact => enrich search :", error.message);
                 };
             }
-        }, i * 1000)
+        // }, i * 1000)
         ContactEnrichIndex += 1
     }
     return officersList;
