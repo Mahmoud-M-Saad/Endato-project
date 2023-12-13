@@ -354,6 +354,8 @@ async function searchForConacts (officersListArr) {
                     console.log("officersList["+i);
                     console.log(officersList[i]);
                     officersList[i].contactDetails = FinalcontactDetails
+                    console.log("officersList["+i);
+                    console.log(officersList[i]);
                 } catch (error) {
                     console.error("Error From SearchContact=> id search :", error.message);
                     //*contact enrich
@@ -387,6 +389,8 @@ async function searchForConacts (officersListArr) {
                     console.log("officersList["+i);
                     console.log(officersList[i]);
                     officersList[i].contactDetails = FinalcontactDetails
+                    console.log("officersList["+i);
+                    console.log(officersList[i]);
                 } catch (error) {
                     console.error("Error From SearchContact => enrich search :", error.message);
                 };
