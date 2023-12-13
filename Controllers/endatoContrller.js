@@ -159,19 +159,16 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         let AllBusPhones = businessV2RecordsList[i]
             ?.usCorpFilings
                 ?.[0];        
-        if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
-            if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
-                console.log("phones: " + AllBusPhones.phones);
-                busPhones.push(
-                    AllBusPhones.phones[0]
-                        ?.phoneNumber
-                );
-                busPhones.push(
-                    AllBusPhones.phones[1]
-                        ?.phoneNumber
-                );
+            if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
+                if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
+                    console.log("phones: " + AllBusPhones.phones);
+                    busPhones.push(AllBusPhones.phones[0]?.phoneNumber);
+                    if (AllBusPhones.phones[1]) {
+                        busPhones.push(AllBusPhones.phones[1]?.phoneNumber);
+                    }
+
+                }
             }
-        }
         console.log("busPhones: " + busPhones);
         let targetResObject = businessV2RecordsList[i];
         let target_usCorpFilings_list = targetResObject
@@ -241,8 +238,6 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
             .log("End of businessV2RecordsList["+i+"]");
     }
     console.log("officersList.len: "+officersList.length);
-    console.log("*/*/*/*officersList: ")
-    console.log(officersList);
     return {officersList,busPhones} ;
 };
 
@@ -267,20 +262,16 @@ function collect_officers_from_NewResponse(newres) {
         if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
             // Check if phones is an array and not empty
             if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
-                console.log("phones: " + JSON.stringify(AllBusPhones.phones));
-                busPhones.push(
-                    AllBusPhones.phones[0]
-                        ?.phoneNumber
-                );
-                busPhones.push(
-                    AllBusPhones.phones[1]
-                        ?.phoneNumber
-                );
+                console.log("phones: " + AllBusPhones.phones);
+                    busPhones.push(AllBusPhones.phones[0]?.phoneNumber);
+                    if (AllBusPhones.phones[1]) {
+                        busPhones.push(AllBusPhones.phones[1]?.phoneNumber);
+                    }
+                
             }
         }
         console.log("busPhones: " + busPhones);
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
-        console.log("newBusinessFilings.length: "+newBusinessFilings.length);
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
             let addresses = newBusinessFilings[j].addresses
@@ -317,8 +308,6 @@ function collect_officers_from_NewResponse(newres) {
         .log("End of businessV2RecordsList["+i+"]");
     }
     console.log("officersList.length: "+ officersList.length);
-    console.log("*/*/*/*officersList: ")
-    console.log(officersList);
     return { officersList,busPhones};
 };
 
