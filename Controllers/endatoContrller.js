@@ -467,7 +467,6 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
         // setTimeout(async () => {
             let tempObj = BusinessNames[i]
             tempObj.officers = []
-            tempObj.BusinessPhones = []
             for (let x = 0; x < BusinessNames[i]["Primary Names"].length; x++) {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 try {
@@ -515,7 +514,11 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
                             console.log(searchBusinssRes);
-                            tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones);
+                            if (tempObj.BusinessPhones) {
+                                tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)
+                            }else{
+                                tempObj.BusinessPhones=searchBusinssRes.busPhones;
+                            }
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
