@@ -150,6 +150,9 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     for (let i = 0; i < businessV2RecordsList.length; i++) {
         let targetResObject = businessV2RecordsList[i];
         let target_usCorpFilings_list = targetResObject.usCorpFilings
+        console.log("target_usCorpFilings_list");
+        console.log(target_usCorpFilings_list);
+        console.log(target_usCorpFilings_list.phones);
         for (let j = 0; j < target_usCorpFilings_list.length; j++) {
             if (target_usCorpFilings_list.length >= 1) {
                 let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j].officers
@@ -161,6 +164,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
                     if (temp_officers_list_per_usCorpFilings.length >= 1) {
                         let target_officer_object = temp_officers_list_per_usCorpFilings[x];
                         //! for getting IDs
+                        console.log("target_officer_object: "+target_officer_object);
                         if (
                             target_officer_object
                                 ?.name
@@ -222,7 +226,7 @@ function collect_officers_from_NewResponse(newres) {
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
             let addresses = newBusinessFilings[j].addresses
-            console.log("phones: "+ newBusinessFilings[j].phones);
+            console.log("newBusinessFilings[j]: "+ newBusinessFilings[j]);
             // let BusinessPhone = newBusinessFilings[j].phones[0].phoneNumber ;
             // console.log("*/*/*/*BusinessPhone: "+BusinessPhone);
             let tempOfficerObj = {};
@@ -362,7 +366,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 response.data["businessV2Records"][z]['newBusinessFilings']
                                     ?.length === 0
                             ) {
-                                console.log("📢📢📢usCorpFilings start ....")
+                                console.log(z+"- 📢📢📢usCorpFilings start ....")
                                 console.log(response.data["businessV2Records"][z]['usCorpFilings']);
                                 searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data);
                             }
@@ -370,7 +374,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 response.data["businessV2Records"][z]['usCorpFilings']
                                     ?.length === 0
                             ) {
-                                console.log("📢📢📢newBusinessFilings start ....")
+                                console.log(z+"- 📢📢📢newBusinessFilings start ....")
                                 console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
