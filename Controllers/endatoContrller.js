@@ -139,20 +139,27 @@ function add_finalObj_inAirTable(finalObj) {
         });
 };
 
+//! usCorpFilings
 function collect_officers_from_eachbusinessSearch(businessV2res) {
     //! here i collect only officers from each business searh
     let businessV2RecordsList = businessV2res.businessV2Records;
     let idsList_per_officer = [];
+    let busPhones = [];
     if (businessV2RecordsList.length === 0) {
         console.log("empty response for business search")
         return []
     }
+    console.log("businessV2RecordsList phones");
+    console.log(businessV2RecordsList[0].phones);
+    //? If Not null and not empty, so push the 1st & 2nd numbers  
+    if(businessV2RecordsList[0].phones || businessV2RecordsList[0].phones.length !== 0 ){
+        busPhones.push(businessV2RecordsList[0].phones[0].phoneNumber);
+        busPhones.push(businessV2RecordsList[0].phones[1].phoneNumber);
+    }
+    console.log("busPhones: "+ busPhones);
     for (let i = 0; i < businessV2RecordsList.length; i++) {
         let targetResObject = businessV2RecordsList[i];
         let target_usCorpFilings_list = targetResObject.usCorpFilings
-        console.log("target_usCorpFilings_list");
-        console.log(target_usCorpFilings_list);
-        console.log(target_usCorpFilings_list.phones);
         for (let j = 0; j < target_usCorpFilings_list.length; j++) {
             if (target_usCorpFilings_list.length >= 1) {
                 let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j].officers
@@ -164,7 +171,6 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
                     if (temp_officers_list_per_usCorpFilings.length >= 1) {
                         let target_officer_object = temp_officers_list_per_usCorpFilings[x];
                         //! for getting IDs
-                        console.log("target_officer_object: "+target_officer_object);
                         if (
                             target_officer_object
                                 ?.name
@@ -218,17 +224,26 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     return idsList_per_officer;
 };
 
+//! newBusinessFilings
 function collect_officers_from_NewResponse(newres) {
     let businessV2RecordsList = newres.businessV2Records;
     let officersList = []
+    let busPhones = []
+    console.log("businessV2RecordsList phones");
+    console.log(businessV2RecordsList[0].phones);
+    //? If Not null and not empty, so push the 1st & 2nd numbers  
+    if(businessV2RecordsList[0].phones || businessV2RecordsList[0].phones.length !== 0 ){
+        busPhones.push(businessV2RecordsList[0].phones[0].phoneNumber);
+        busPhones.push(businessV2RecordsList[0].phones[1].phoneNumber);
+    }
+    console.log("busPhones: "+ busPhones);
+    console.log("businessV2RecordsList: ");
+    console.log(businessV2RecordsList);
     for (let i = 0; i < businessV2RecordsList.length; i++) {
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
             let addresses = newBusinessFilings[j].addresses
-            console.log("newBusinessFilings[j]: "+ newBusinessFilings[j]);
-            // let BusinessPhone = newBusinessFilings[j].phones[0].phoneNumber ;
-            // console.log("*/*/*/*BusinessPhone: "+BusinessPhone);
             let tempOfficerObj = {};
             contacts
                 .filter((item) => item.contactTypeDesc.includes('OFFICER'))
@@ -253,7 +268,6 @@ function collect_officers_from_NewResponse(newres) {
                         "addressLine2": `${item.city}, ${item.state}`
                     }
                 });
-            officersList.push(BusinessPhone)
             if (tempOfficerObj != {}) {
                 officersList.push(tempOfficerObj)
             }
