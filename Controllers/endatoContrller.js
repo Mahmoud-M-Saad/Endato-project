@@ -153,10 +153,12 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         let AllBusPhones = businessV2RecordsList[i].usCorpFilings[0] || null;
         let busPhones = []
         //? If Not null and not empty, so push the 1st & 2nd numbers  
-        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0){
-            console.log("phones: "+AllBusPhones.phones);
-            busPhones.push(AllBusPhones.phones[0].phoneNumber);
-            busPhones.push(AllBusPhones.phones[1].phoneNumber);
+        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones)) {
+            if (AllBusPhones.phones.length !== 0) {
+                console.log("phones: " + AllBusPhones.phones);
+                busPhones.push(AllBusPhones.phones[0].phoneNumber);
+                busPhones.push(AllBusPhones.phones[1].phoneNumber);
+            }
         }
         console.log("busPhones: "+ busPhones);
         let targetResObject = businessV2RecordsList[i];
@@ -238,11 +240,13 @@ function collect_officers_from_NewResponse(newres) {
         let AllBusPhones = businessV2RecordsList[i].newBusinessFilings[0];
         let busPhones = []
         //? If Not null and not empty, so push the 1st & 2nd numbers  
-        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0){
-            console.log("phones: "+AllBusPhones.phones);
-            busPhones.push(AllBusPhones.phones[0].phoneNumber);
-            busPhones.push(AllBusPhones.phones[1].phoneNumber);
-        }  
+        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones)) {
+            if (AllBusPhones.phones.length !== 0) {
+                console.log("phones: " + AllBusPhones.phones);
+                busPhones.push(AllBusPhones.phones[0].phoneNumber);
+                busPhones.push(AllBusPhones.phones[1].phoneNumber);
+            }
+        }
         console.log("busPhones: "+ busPhones);
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
         for (let j = 0; j < newBusinessFilings.length; j++) {
