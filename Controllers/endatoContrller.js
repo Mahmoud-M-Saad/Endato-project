@@ -70,10 +70,6 @@ function add_finalObj_inAirTable(finalObj) {
             console.log("finalObj.officer: ...");
             console.log(finalObj.officers);
             if (finalObj.officers.length > 0) {
-                let  testofficers = finalObj
-                        .officers
-                        .map((off)=>console.log(off));
-                        console.log(testofficers);
                     const officers = finalObj
                         .officers
                         .map((officer) => ({
@@ -243,9 +239,10 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
             .log("End of businessV2RecordsList["+i+"]");
     }
     console.log("officersList.len: "+officersList.length);
+    officersList.push(busPhones)
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return {officersList , busPhones};
+    return officersList ;
 };
 
 //! 02-newBusinessFilings
@@ -318,9 +315,10 @@ function collect_officers_from_NewResponse(newres) {
         .log("End of businessV2RecordsList["+i+"]");
     }
     console.log("officersList.length: "+ officersList.length);
+    officersList.push(busPhones)
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return {officersList , busPhones};
+    return officersList;
 };
 
 async function searchForConacts (officersListArr) {
@@ -453,10 +451,9 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
                             console.log(searchBusinssRes);
-                            tempObj.push(searchBusinssRes.busPhones)
                             tempObj
                                 .officers
-                                .push(searchBusinssRes.officersList)
+                                .push(searchBusinssRes)
                             }  
                                                   
                         }
