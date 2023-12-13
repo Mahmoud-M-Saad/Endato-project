@@ -32,8 +32,8 @@ function add_finalObj_inAirTable(finalObj) {
                     'Bureau Number': finalObj['Bureau Number'],
                     // 'Primary Name': finalObj['Primary Name'],
                     'Company Names': companyNames,
-                    'Business Phones 1':finalObj['BusinessPhones'][0] || "No phone number provided",
-                    'Business Phones 2':finalObj['BusinessPhones'][1] || "No phone number provided",
+                    'Business Phones 1': finalObj['BusinessPhones'][0] || "No phone number provided",
+                    'Business Phones 2': finalObj['BusinessPhones'][1] || "No phone number provided",
                     'Street Address': finalObj['Street Address'],
                     'City': finalObj['City'],
                     'State': finalObj['State'],
@@ -72,61 +72,69 @@ function add_finalObj_inAirTable(finalObj) {
             console.log("finalObj.officer: ...");
             console.log(finalObj.officers);
             if (finalObj.officers.length > 0) {
-                    const officers = finalObj
-                        .officers
-                        .map((officer) => ({
-                            fields: {
-                                'Person ID': officer['PersonID'],
-                                'First Name': officer['FirstName'],
-                                'Last Name': officer['LastName'],
-                                //'address': officer['Addresses'].addressLine2,
-                                'Full Name': officer['fullName'],
-                                // 'Street': officer['Street'], 'City': officer['City'], 'State':
-                                // officer['State'], 'postal/zip code': officer['postalCode'],
-                                'Street': officer['Street'],
-                                'City': officer['City'],
-                                'State': officer['State'],
-                                'postal/zip code': officer['postalCode'],
-                                'phone 1': officer['contactDetails']
-                                    ?.phones[0],
-                                'phone 2': officer['contactDetails']
-                                    ?.phones[1],
-                                'phone 3': officer['contactDetails']
-                                    ?.phones[2],
-                                'phone 4': officer['contactDetails']
-                                    ?.phones[3],
-                                'phone 5': officer['contactDetails']
-                                    ?.phones[4],
-                                'phone 6': officer['contactDetails']
-                                    ?.phones[5],
-                                'email 1': officer['contactDetails']
-                                    ?.emails[0],
-                                'email 2': officer['contactDetails']
-                                    ?.emails[1],
-                                'email 3': officer['contactDetails']
-                                    ?.emails[2],
-                                'email 4': officer['contactDetails']
-                                    ?.emails[3],
-                                'email 5': officer['contactDetails']
-                                    ?.emails[4],
-                                'email 6': officer['contactDetails']
-                                    ?.emails[5],
-                                'company': [
-                                    records[0]
-                                        ?.id
-                                ], // Link officers to the company record
-                            }
-                        }));
-                    console.log("officer:...");
-                    console.log(officers);
-
-                    base(tabelIDofficers).create(officers, (officerErr) => {
-                        if (officerErr) {
-                            console.error("from adding data to airtable📢", officerErr);
-                            //  return;
+                const officers = finalObj
+                    .officers
+                    .map((officer) => ({
+                        fields: {
+                            'Person ID': officer['PersonID'] || "No Person ID provided",
+                            'First Name': officer['FirstName'],
+                            'Last Name': officer['LastName'],
+                            //'address': officer['Addresses'].addressLine2,
+                            'Full Name': officer['fullName'],
+                            // 'Street': officer['Street'], 'City': officer['City'], 'State':
+                            // officer['State'], 'postal/zip code': officer['postalCode'],
+                            'Street': officer['contactDetails']
+                                ?.addresses
+                                    ?.street,
+                            'City': officer['contactDetails']
+                                ?.addresses
+                                    ?.city,
+                            'State': officer['contactDetails']
+                                ?.addresses
+                                    ?.state,
+                            'postal/zip code': officer['contactDetails']
+                                ?.addresses
+                                    ?.zip,
+                            'phone 1': officer['contactDetails']
+                                ?.phones[0],
+                            'phone 2': officer['contactDetails']
+                                ?.phones[1],
+                            'phone 3': officer['contactDetails']
+                                ?.phones[2] || "No phone number provided",
+                            'phone 4': officer['contactDetails']
+                                ?.phones[3] || "No phone number provided",
+                            'phone 5': officer['contactDetails']
+                                ?.phones[4] || "No phone number provided",
+                            'phone 6': officer['contactDetails']
+                                ?.phones[5] || "No phone number provided",
+                            'email 1': officer['contactDetails']
+                                ?.emails[0],
+                            'email 2': officer['contactDetails']
+                                ?.emails[1],
+                            'email 3': officer['contactDetails']
+                                ?.emails[2] || "No email provided",
+                            'email 4': officer['contactDetails']
+                                ?.emails[3] || "No email provided",
+                            'email 5': officer['contactDetails']
+                                ?.emails[4] || "No email provided",
+                            'email 6': officer['contactDetails']
+                                ?.emails[5] || "No email provided",
+                            'company': [
+                                records[0]
+                                    ?.id
+                            ], // Link officers to the company record
                         }
-                    });
-                
+                    }));
+                console.log("officer:...");
+                console.log(officers);
+
+                base(tabelIDofficers).create(officers, (officerErr) => {
+                    if (officerErr) {
+                        console.error("from adding data to airtable📢", officerErr);
+                        //  return;
+                    }
+                });
+
                 console.log('Company and Officer data added successfully.');
                 console.log(
                     "BusinessV2SearchIndexCounter: " + BusinessV2SearchIndexCounter
@@ -158,29 +166,40 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     for (let i = 0; i < businessV2RecordsList.length; i++) {
         let AllBusPhones = businessV2RecordsList[i]
             ?.usCorpFilings
-                ?.[0];        
-            if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
-                if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
-                    console.log("phones: " + AllBusPhones.phones);
-                    busPhones.push(AllBusPhones.phones[0]?.phoneNumber);
-                    if (AllBusPhones.phones[1]) {
-                        busPhones.push(AllBusPhones.phones[1]?.phoneNumber);
-                    }
-
+                ?.[0];
+        if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
+            if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
+                console.log("phones: " + AllBusPhones.phones);
+                busPhones.push(
+                    AllBusPhones.phones[0]
+                        ?.phoneNumber
+                );
+                if (AllBusPhones.phones[1]) {
+                    busPhones.push(
+                        AllBusPhones.phones[1]
+                            ?.phoneNumber
+                    );
                 }
+
             }
+        }
         console.log("busPhones: " + busPhones);
         let targetResObject = businessV2RecordsList[i];
         let target_usCorpFilings_list = targetResObject
             .usCorpFilings
             for (let j = 0; j < target_usCorpFilings_list.length; j++) {
                 if (target_usCorpFilings_list.length >= 1) {
-                    let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j].officers
-                    if (temp_officers_list_per_usCorpFilings.length === 0) {
-                        console.log("there is no officers in this res")
-                        return
-                    }
-                    console.log("temp_officers_list_per_usCorpFilings.length: "+temp_officers_list_per_usCorpFilings.length);
+                    let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j]
+                        .officers
+                        if (temp_officers_list_per_usCorpFilings.length === 0) {
+                            console.log("there is no officers in this res")
+                            return
+                        }
+                        console
+                        .log(
+                            "temp_officers_list_per_usCorpFilings.length: " +
+                            temp_officers_list_per_usCorpFilings.length
+                        );
                     for (let x = 0; x < temp_officers_list_per_usCorpFilings.length; x++) {
                         if (temp_officers_list_per_usCorpFilings.length >= 1) {
                             let target_officer_object = temp_officers_list_per_usCorpFilings[x];
@@ -235,10 +254,10 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
                 }
             }
             console
-            .log("End of businessV2RecordsList["+i+"]");
+            .log("End of businessV2RecordsList[" + i + "]");
     }
-    console.log("officersList.len: "+officersList.length);
-    return {officersList,busPhones} ;
+    console.log("officersList.len: " + officersList.length);
+    return {officersList, busPhones};
 };
 
 //! 02-newBusinessFilings
@@ -257,17 +276,23 @@ function collect_officers_from_NewResponse(newres) {
         let AllBusPhones = businessV2RecordsList[i]
             ?.newBusinessFilings
                 ?.[0];
-        
+
         // Check if AllBusPhones is not undefined and has the phones property
         if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
             // Check if phones is an array and not empty
             if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
                 console.log("phones: " + AllBusPhones.phones);
-                    busPhones.push(AllBusPhones.phones[0]?.phoneNumber);
-                    if (AllBusPhones.phones[1]) {
-                        busPhones.push(AllBusPhones.phones[1]?.phoneNumber);
-                    }
-                
+                busPhones.push(
+                    AllBusPhones.phones[0]
+                        ?.phoneNumber
+                );
+                if (AllBusPhones.phones[1]) {
+                    busPhones.push(
+                        AllBusPhones.phones[1]
+                            ?.phoneNumber
+                    );
+                }
+
             }
         }
         console.log("busPhones: " + busPhones);
@@ -304,84 +329,12 @@ function collect_officers_from_NewResponse(newres) {
                 officersList.push(tempOfficerObj)
             }
         }
-        console
-        .log("End of businessV2RecordsList["+i+"]");
+        console.log("End of businessV2RecordsList[" + i + "]");
     }
-    console.log("officersList.length: "+ officersList.length);
-    return { officersList,busPhones};
+    console.log("officersList.length: " + officersList.length);
+    return {officersList, busPhones};
 };
 
-// async function searchForContacts (officersListArr) {
-//     let officersList = officersListArr
-//     console.log("🎶👍🎶 Obj befor contact search", officersList)
-//     for (let i = 0; i < officersList.length; i++) {
-//         setTimeout(async () => {
-//             let targetOfficer = officersList[i];
-//             if (officersList[i]["PersonID"] !== null) {
-//                 try {
-//                     const response = await axios.request({
-//                         method: 'POST',
-//                         url: 'https://devapi.endato.com/Contact/Id',
-//                         headers: {
-//                             accept: 'application/json',
-//                             'galaxy-ap-name': galaxy_name,
-//                             'galaxy-ap-password': galaxy_password,
-//                             'galaxy-search-type': 'DevAPIContactID',
-//                             'content-type': 'application/json',
-//                             'galaxy-client-type': 'DevAPIContactEnrich'
-//                         },
-//                         data: {
-//                             "PersonID": `${targetOfficer.PersonID}`
-//                         }
-//                     })
-//                     officersList[i].contactDetails = filterController.filterEmails_Phones(
-//                         response.data
-//                     );
-//                     console.log("officersList["+i);
-//                     console.log(officersList[i]);
-//                 } catch (error) {
-//                     console.error("Error From SearchContact=> id search :", error.message);
-//                     //*contact enrich
-//                 };
-//             } else {
-//                 try {
-//                     const response = await axios.request({
-//                         method: 'POST',
-//                         url: 'https://devapi.endato.com/Contact/Enrich',
-//                         headers: {
-//                             accept: 'application/json',
-//                             'galaxy-ap-name': galaxy_name,
-//                             'galaxy-ap-password': galaxy_password,
-//                             'galaxy-search-type': 'DevAPIContactEnrich',
-//                             'content-type': 'application/json',
-//                             'galaxy-client-type': 'DevAPIContactEnrich'
-//                         },
-//                         data: {
-//                             "FirstName": `${targetOfficer['FirstName']}`,
-//                             "LastName": `${targetOfficer['LastName']}`,
-//                             "Address": {
-//                                 "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
-//                             }
-//                         }
-//                     })
-//                     officersList[i].contactDetails = filterController.filterEmails_Phones(
-//                         response.data
-//                     )
-//                     console.log("officersList["+i);
-//                     console.log(officersList[i]);
-//                 } catch (error) {
-//                     console.error("Error From SearchContact => enrich search :", error.message);
-//                 };
-//             }
-//         }, 2000)
-//         ContactEnrichIndex += 1
-//     }
-//     console.log("🎶👍🎶 Obj After contact search");
-//     console.log(officersList);
-//     return officersList;
-// };
-
-// !================================
 async function searchForContacts(officersListArr) {
     let officersList = officersListArr;
     console.log("🎶👍🎶 Obj before contact search", officersList);
@@ -461,10 +414,9 @@ async function searchForContacts(officersListArr) {
     return officersList;
 }
 
-// !================================
 exports.step2final_SearchContact = async function (BusinessNames, res) {
     for (let i = 0; i < BusinessNames.length; i++) {
-        // setTimeout(async () => {
+        setTimeout(async () => {
             let tempObj = BusinessNames[i]
             tempObj.officers = []
             for (let x = 0; x < BusinessNames[i]["Primary Names"].length; x++) {
@@ -489,19 +441,23 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 .State}`
                         }
                     })
-                    console.log("😒😒😒bus end search and it's response length: "+response.data.businessV2Records.length)
+                    console.log(
+                        "😒😒😒bus end search and it's response length: " + response.data.businessV2Records.length
+                    )
                     BusinessV2SearchIndexCounter += 1;
                     if (response.data["businessV2Records"].length === 0) {
                         tempObj.result = `no business result for ${BusinessNames[i]["Primary Names"][x]} `;
                         console.log("🤦‍♂️🤦‍♂️", " empty [] in business search", tempObj);
                     } else {
                         let searchBusinssRes;
-                        for (let z = 0; z < response.data["businessV2Records"].length; z++) {                        
+                        for (let z = 0; z < response.data["businessV2Records"].length; z++) {
                             if (
                                 response.data["businessV2Records"][z]['newBusinessFilings']
                                     ?.length === 0
                             ) {
-                                console.log(z+" - 📢📢📢usCorpFilings start ....")
+                                console.log(
+                                    z + " - 📢📢📢usCorpFilings start ...."
+                                )
                                 console.log(response.data["businessV2Records"][z]['usCorpFilings']);
                                 searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data)
                             }
@@ -509,24 +465,22 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 response.data["businessV2Records"][z]['usCorpFilings']
                                     ?.length === 0
                             ) {
-                                console.log(z+" - 📢📢📢newBusinessFilings start ....")
+                                console.log(
+                                    z + " - 📢📢📢newBusinessFilings start ...."
+                                )
                                 console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
                             console.log(searchBusinssRes);
-                            if (tempObj.BusinessPhones) {
-                                tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)
-                            }else{
-                                tempObj.BusinessPhones=searchBusinssRes.busPhones;
-                            }
+                            tempObj.BusinessPhones = searchBusinssRes.busPhones;
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
-                            }  
-                                                  
                         }
-                        console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
-                        console.log(tempObj);
+
+                    }
+                    console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
+                    console.log(tempObj);
                 } catch (error) {
                     console.error("Error From Search business function :", error.message);
                 };
@@ -560,7 +514,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         console.log("err for new function of getting contacts", err.message)
                     })
                 }
-        // }, i * 1000)
+        }, i * 1000)
     }
     res
         .status(200)
