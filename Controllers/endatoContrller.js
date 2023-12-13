@@ -14,6 +14,8 @@ let BusinessV2SearchIndexCounter = 0;
 let ContactEnrichIndex = 0;
 
 function add_finalObj_inAirTable(finalObj) {
+    console.log("From AirTable Endpoint finalObj");
+    console.log(finalObj);
     const base = new Airtable({apiKey: YOUR_API_KEY}).base(YOUR_BASE_ID);
     const PrimaryNames = finalObj['Primary Names']
     const CopyPasteURLs = finalObj['CopyPasteURLs']
@@ -63,6 +65,9 @@ function add_finalObj_inAirTable(finalObj) {
             }
         ],)
         .then((records) => {
+            console.log("finalObj.officers.length: "+ finalObj.officers.length);
+            console.log("finalObj.officer: ...");
+            console.log(finalObj.officers);
             if (finalObj.officers.length > 0) {
                 const officers = finalObj
                     .officers
@@ -149,85 +154,97 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         return []
     }
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log("businessV2RecordsList["+i+"].length: " + businessV2RecordsList[i]);
-// ! ========================
-let AllBusPhones = businessV2RecordsList[i]?.usCorpFilings?.[0];
-let busPhones = [];
-// Check if AllBusPhones is not undefined and has the phones property
-if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
-    // Check if phones is an array and not empty
-    if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
-        console.log("phones: " + AllBusPhones.phones);
-        // Push the 1st & 2nd numbers to busPhones
-        busPhones.push(AllBusPhones.phones[0]?.phoneNumber);
-        busPhones.push(AllBusPhones.phones[1]?.phoneNumber);
-    }
-}
-console.log("busPhones: " + busPhones);
-// ! ========================
+        console.log(
+            "businessV2RecordsList[" + i + "].length: " + businessV2RecordsList[i].length
+        );
+        console.log("businessV2RecordsList: " + businessV2RecordsList);
+        let AllBusPhones = businessV2RecordsList[i]
+            ?.usCorpFilings
+                ?.[0];
+        let busPhones = [];
+        if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
+            if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
+                console.log("phones: " + AllBusPhones.phones);
+                busPhones.push(
+                    AllBusPhones.phones[0]
+                        ?.phoneNumber
+                );
+                busPhones.push(
+                    AllBusPhones.phones[1]
+                        ?.phoneNumber
+                );
+            }
+        }
+        console.log("busPhones: " + busPhones);
         let targetResObject = businessV2RecordsList[i];
-        let target_usCorpFilings_list = targetResObject.usCorpFilings
-        for (let j = 0; j < target_usCorpFilings_list.length; j++) {
-            if (target_usCorpFilings_list.length >= 1) {
-                let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j].officers
-                if (temp_officers_list_per_usCorpFilings.length === 0) {
-                    console.log("there is no officers in this res")
-                    return
-                }
-                for (let x = 0; x < temp_officers_list_per_usCorpFilings.length; x++) {
-                    if (temp_officers_list_per_usCorpFilings.length >= 1) {
-                        let target_officer_object = temp_officers_list_per_usCorpFilings[x];
-                        //! for getting IDs
-                        if (
-                            target_officer_object
-                                ?.name
-                        ) {
-                            let tempObj = {
-                                "PersonID": target_officer_object
+        let target_usCorpFilings_list = targetResObject
+            .usCorpFilings
+            for (let j = 0; j < target_usCorpFilings_list.length; j++) {
+                if (target_usCorpFilings_list.length >= 1) {
+                    let temp_officers_list_per_usCorpFilings = target_usCorpFilings_list[j].officers
+                    if (temp_officers_list_per_usCorpFilings.length === 0) {
+                        console.log("there is no officers in this res")
+                        return
+                    }
+                    console.log("temp_officers_list_per_usCorpFilings.length: "+temp_officers_list_per_usCorpFilings.length);
+                    for (let x = 0; x < temp_officers_list_per_usCorpFilings.length; x++) {
+                        if (temp_officers_list_per_usCorpFilings.length >= 1) {
+                            let target_officer_object = temp_officers_list_per_usCorpFilings[x];
+                            //! for getting IDs
+                            if (
+                                target_officer_object
                                     ?.name
-                                        ?.tahoeId,
-                                "FirstName": target_officer_object
-                                    ?.name
-                                        ?.nameFirst,
-                                "LastName": target_officer_object
-                                    ?.name
-                                        ?.nameLast,
-                                "Street": target_officer_object
-                                    ?.address
-                                        ?.addressLine1,
-                                "City": target_officer_object
-                                    ?.address
-                                        ?.city,
-                                "State": target_officer_object
-                                    ?.address
-                                        ?.state,
-                                "postalCode": target_officer_object
-                                    ?.address
-                                        ?.zip,
-                                "fullName": target_officer_object
-                                    ?.name
-                                        ?.nameRaw,
-                                "Addresses": {
-                                    "addressLine2": `${target_officer_object
+                            ) {
+                                let tempObj = {
+                                    "PersonID": target_officer_object
+                                        ?.name
+                                            ?.tahoeId,
+                                    "FirstName": target_officer_object
+                                        ?.name
+                                            ?.nameFirst,
+                                    "LastName": target_officer_object
+                                        ?.name
+                                            ?.nameLast,
+                                    "Street": target_officer_object
                                         ?.address
-                                            ?.city}, ${target_officer_object
-                                                ?.address
-                                                    ?.state}`
-                                },
-                                "addressHash": target_officer_object
-                                    ?.address
-                                        ?.addressHash,
-                                "startDate": target_officer_object
-                                    ?.startDate
+                                            ?.addressLine1,
+                                    "City": target_officer_object
+                                        ?.address
+                                            ?.city,
+                                    "State": target_officer_object
+                                        ?.address
+                                            ?.state,
+                                    "postalCode": target_officer_object
+                                        ?.address
+                                            ?.zip,
+                                    "fullName": target_officer_object
+                                        ?.name
+                                            ?.nameRaw,
+                                    "Addresses": {
+                                        "addressLine2": `${target_officer_object
+                                            ?.address
+                                                ?.city}, ${target_officer_object
+                                                    ?.address
+                                                        ?.state}`
+                                    },
+                                    "addressHash": target_officer_object
+                                        ?.address
+                                            ?.addressHash,
+                                    "startDate": target_officer_object
+                                        ?.startDate
 
+                                }
+                                idsList_per_officer.push(tempObj)
                             }
-                            idsList_per_officer.push(tempObj)
                         }
                     }
                 }
             }
-        }
+            console
+            .log("End of businessV2RecordsList["+i+"]");
     }
+    console.log("*/*/*/*idsList_per_officer: ")
+    console.log(idsList_per_officer);
     return idsList_per_officer;
 };
 
@@ -240,22 +257,35 @@ function collect_officers_from_NewResponse(newres) {
         return []
     }
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log("businessV2RecordsList.length: " + businessV2RecordsList[i].length);
-// ! ========================
-let AllBusPhones = businessV2RecordsList[i]?.newBusinessFilings?.[0];
-let busPhones = [];
-// Check if AllBusPhones is not undefined and has the phones property
-if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
-    // Check if phones is an array and not empty
-    if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
-        console.log("phones: " + AllBusPhones.phones);
-        // Push the 1st & 2nd numbers to busPhones
-        busPhones.push(AllBusPhones.phones[0]?.phoneNumber);
-        busPhones.push(AllBusPhones.phones[1]?.phoneNumber);
-    }
-}
-console.log("busPhones: " + busPhones);
-// ! ========================
+        console.log(
+            "businessV2RecordsList.length: " + businessV2RecordsList[i].length
+        );
+        console.log(
+            "businessV2RecordsList: " + businessV2RecordsList
+        );
+        let AllBusPhones = businessV2RecordsList[i]
+            ?.newBusinessFilings
+                ?.[0];
+        let busPhones = [];
+        // Check if AllBusPhones is not undefined and has the phones property
+        if (AllBusPhones && AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
+            // Check if phones is an array and not empty
+            if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
+                console.log("phones: " + JSON.stringify(AllBusPhones.phones));
+                console.log(AllBusPhones.phones);
+                // Push the 1st & 2nd numbers to busPhones
+                busPhones.push(
+                    AllBusPhones.phones[0]
+                        ?.phoneNumber
+                );
+                busPhones.push(
+                    AllBusPhones.phones[1]
+                        ?.phoneNumber
+                );
+            }
+        }
+        console.log("busPhones: " + busPhones);
+        // ! ========================
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
@@ -288,8 +318,11 @@ console.log("busPhones: " + busPhones);
                 officersList.push(tempOfficerObj)
             }
         }
+        console
+        .log("End of businessV2RecordsList["+i+"]");
     }
-    console.log("*/*/*/*officersList: "+officersList);
+    console.log("*/*/*/*officersList: ")
+    console.log(officersList);
     return officersList;
 };
 
@@ -396,7 +429,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 response.data["businessV2Records"][z]['newBusinessFilings']
                                     ?.length === 0
                             ) {
-                                console.log(z+"- 📢📢📢usCorpFilings start ....")
+                                console.log(z+" - 📢📢📢usCorpFilings start ....")
                                 console.log(response.data["businessV2Records"][z]['usCorpFilings']);
                                 searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data);
                             }
@@ -404,7 +437,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 response.data["businessV2Records"][z]['usCorpFilings']
                                     ?.length === 0
                             ) {
-                                console.log(z+"- 📢📢📢newBusinessFilings start ....")
+                                console.log(z+" - 📢📢📢newBusinessFilings start ....")
                                 console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
