@@ -154,9 +154,10 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     let busPhones = []
     console.log("phones: "+AllBusPhones);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
-    if(AllBusPhones || AllBusPhones.length !== 0 ){
+    if(AllBusPhones){
+        if(AllBusPhones.length !== 0){
         busPhones.push(AllBusPhones[0].phoneNumber);
-        busPhones.push(AllBusPhones[1].phoneNumber);
+        busPhones.push(AllBusPhones[1].phoneNumber);}
     }
     console.log("busPhones: "+ busPhones);
     console.log("businessV2RecordsList: ");
@@ -238,9 +239,11 @@ function collect_officers_from_NewResponse(newres) {
     let busPhones = []
     console.log("phones: "+AllBusPhones);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
-    if(AllBusPhones || AllBusPhones.length !== 0 ){
+    if(AllBusPhones){
+        if(AllBusPhones.length !== 0 ){
         busPhones.push(AllBusPhones[0].phoneNumber);
         busPhones.push(AllBusPhones[1].phoneNumber);
+    }
     }
     console.log("busPhones: "+ busPhones);
     console.log("businessV2RecordsList: ");
