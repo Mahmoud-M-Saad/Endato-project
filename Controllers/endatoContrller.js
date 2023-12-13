@@ -69,9 +69,12 @@ function add_finalObj_inAirTable(finalObj) {
             console.log("finalObj.officer: ...");
             console.log(finalObj.officers);
             if (finalObj.officers.length > 0) {
-                for (let i = 0; i < finalObj.officers.length; i++) {
+                let  testofficers = finalObj
+                        .officers
+                        .map((off)=>console.log(off));
+                        console.log(testofficers);
                     const officers = finalObj
-                        .officers[i]
+                        .officers
                         .map((officer) => ({
                             fields: {
                                 'Person ID': officer['PersonID'],
@@ -123,7 +126,7 @@ function add_finalObj_inAirTable(finalObj) {
                                 ], // Link officers to the company record
                             }
                         }));
-                    console.log("this is officer: 0" + i);
+                    console.log("officer:...");
                     console.log(officers);
 
                     base(tabelIDofficers).create(officers, (officerErr) => {
@@ -132,7 +135,7 @@ function add_finalObj_inAirTable(finalObj) {
                             //  return;
                         }
                     });
-                }
+                
                 console.log('Company and Officer data added successfully.');
                 console.log(
                     "BusinessV2SearchIndexCounter: " + BusinessV2SearchIndexCounter
