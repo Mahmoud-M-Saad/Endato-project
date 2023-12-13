@@ -245,7 +245,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     console.log("officersList.len: "+officersList.length);
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return officersList , busPhones;
+    return {officersList , busPhones};
 };
 
 //! 02-newBusinessFilings
@@ -320,7 +320,7 @@ function collect_officers_from_NewResponse(newres) {
     console.log("officersList.length: "+ officersList.length);
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return officersList , busPhones;
+    return {officersList , busPhones};
 };
 
 async function searchForConacts (officersListArr) {
@@ -452,11 +452,13 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
+                            console.log(searchBusinssRes);
                             tempObj.push(searchBusinssRes.busPhones)
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
-                            }                        
+                            }  
+                                                  
                         }
                         console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
                         console.log(tempObj);
