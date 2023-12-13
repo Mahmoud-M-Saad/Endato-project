@@ -384,6 +384,8 @@ async function searchForConacts (officersListArr) {
                     )
                     console.log("FinalcontactDetails["+i+"]");
                     console.log(FinalcontactDetails);
+                    console.log("officersList["+i);
+                    console.log(officersList[i]);
                     officersList[i].contactDetails = FinalcontactDetails
                 } catch (error) {
                     console.error("Error From SearchContact => enrich search :", error.message);
