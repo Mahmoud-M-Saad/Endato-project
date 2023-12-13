@@ -154,15 +154,15 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     let busPhones = []
     console.log("phones: "+AllBusPhones);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
-    if(AllBusPhones){
+    if(AllBusPhones || AllBusPhones !== undefined){
         if(AllBusPhones.length !== 0){
         busPhones.push(AllBusPhones[0].phoneNumber);
         busPhones.push(AllBusPhones[1].phoneNumber);}
     }
     console.log("busPhones: "+ busPhones);
-    console.log("businessV2RecordsList: ");
-    console.log(businessV2RecordsList);
     for (let i = 0; i < businessV2RecordsList.length; i++) {
+        console.log("businessV2RecordsList: ");
+        console.log(businessV2RecordsList[i]);
         let targetResObject = businessV2RecordsList[i];
         let target_usCorpFilings_list = targetResObject.usCorpFilings
         for (let j = 0; j < target_usCorpFilings_list.length; j++) {
@@ -233,22 +233,20 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
 function collect_officers_from_NewResponse(newres) {
     let businessV2RecordsList = newres.businessV2Records;
     let officersList = []
-    console.log("businessV2RecordsList");
-    console.log(businessV2RecordsList);
     let AllBusPhones = businessV2RecordsList[0].newBusinessFilings[0].phones;
     let busPhones = []
     console.log("phones: "+AllBusPhones);
     //? If Not null and not empty, so push the 1st & 2nd numbers  
-    if(AllBusPhones){
+    if(AllBusPhones || AllBusPhones !== undefined){
         if(AllBusPhones.length !== 0 ){
         busPhones.push(AllBusPhones[0].phoneNumber);
         busPhones.push(AllBusPhones[1].phoneNumber);
     }
     }
     console.log("busPhones: "+ busPhones);
-    console.log("businessV2RecordsList: ");
-    console.log(businessV2RecordsList);
     for (let i = 0; i < businessV2RecordsList.length; i++) {
+        console.log("businessV2RecordsList");
+        console.log(businessV2RecordsList[i]);
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
