@@ -311,14 +311,90 @@ function collect_officers_from_NewResponse(newres) {
     return { officersList,busPhones};
 };
 
-async function searchForConacts (officersListArr) {
-    let officersList = officersListArr
-    console.log("🎶👍🎶 Obj befor contact search", officersList)
+// async function searchForContacts (officersListArr) {
+//     let officersList = officersListArr
+//     console.log("🎶👍🎶 Obj befor contact search", officersList)
+//     for (let i = 0; i < officersList.length; i++) {
+//         setTimeout(async () => {
+//             let targetOfficer = officersList[i];
+//             if (officersList[i]["PersonID"] !== null) {
+//                 try {
+//                     const response = await axios.request({
+//                         method: 'POST',
+//                         url: 'https://devapi.endato.com/Contact/Id',
+//                         headers: {
+//                             accept: 'application/json',
+//                             'galaxy-ap-name': galaxy_name,
+//                             'galaxy-ap-password': galaxy_password,
+//                             'galaxy-search-type': 'DevAPIContactID',
+//                             'content-type': 'application/json',
+//                             'galaxy-client-type': 'DevAPIContactEnrich'
+//                         },
+//                         data: {
+//                             "PersonID": `${targetOfficer.PersonID}`
+//                         }
+//                     })
+//                     officersList[i].contactDetails = filterController.filterEmails_Phones(
+//                         response.data
+//                     );
+//                     console.log("officersList["+i);
+//                     console.log(officersList[i]);
+//                 } catch (error) {
+//                     console.error("Error From SearchContact=> id search :", error.message);
+//                     //*contact enrich
+//                 };
+//             } else {
+//                 try {
+//                     const response = await axios.request({
+//                         method: 'POST',
+//                         url: 'https://devapi.endato.com/Contact/Enrich',
+//                         headers: {
+//                             accept: 'application/json',
+//                             'galaxy-ap-name': galaxy_name,
+//                             'galaxy-ap-password': galaxy_password,
+//                             'galaxy-search-type': 'DevAPIContactEnrich',
+//                             'content-type': 'application/json',
+//                             'galaxy-client-type': 'DevAPIContactEnrich'
+//                         },
+//                         data: {
+//                             "FirstName": `${targetOfficer['FirstName']}`,
+//                             "LastName": `${targetOfficer['LastName']}`,
+//                             "Address": {
+//                                 "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
+//                             }
+//                         }
+//                     })
+//                     officersList[i].contactDetails = filterController.filterEmails_Phones(
+//                         response.data
+//                     )
+//                     console.log("officersList["+i);
+//                     console.log(officersList[i]);
+//                 } catch (error) {
+//                     console.error("Error From SearchContact => enrich search :", error.message);
+//                 };
+//             }
+//         }, 2000)
+//         ContactEnrichIndex += 1
+//     }
+//     console.log("🎶👍🎶 Obj After contact search");
+//     console.log(officersList);
+//     return officersList;
+// };
+
+// !================================
+async function searchForContacts(officersListArr) {
+    let officersList = officersListArr;
+    console.log("🎶👍🎶 Obj before contact search", officersList);
+
+    // Array to store promises
+    const promises = [];
+
     for (let i = 0; i < officersList.length; i++) {
-        setTimeout(async () => {
+        const promise = new Promise(async (resolve, reject) => {
             let targetOfficer = officersList[i];
-            if (officersList[i]["PersonID"] !== null) {
-                try {
+
+            try {
+                if (targetOfficer["PersonID"] !== null) {
                     const response = await axios.request({
                         method: 'POST',
                         url: 'https://devapi.endato.com/Contact/Id',
@@ -333,18 +409,14 @@ async function searchForConacts (officersListArr) {
                         data: {
                             "PersonID": `${targetOfficer.PersonID}`
                         }
-                    })
+                    });
+
                     officersList[i].contactDetails = filterController.filterEmails_Phones(
                         response.data
                     );
-                    console.log("officersList["+i);
+                    console.log("officersList[" + i + "]");
                     console.log(officersList[i]);
-                } catch (error) {
-                    console.error("Error From SearchContact=> id search :", error.message);
-                    //*contact enrich
-                };
-            } else {
-                try {
+                } else {
                     const response = await axios.request({
                         method: 'POST',
                         url: 'https://devapi.endato.com/Contact/Enrich',
@@ -363,24 +435,33 @@ async function searchForConacts (officersListArr) {
                                 "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
                             }
                         }
-                    })
+                    });
+
                     officersList[i].contactDetails = filterController.filterEmails_Phones(
                         response.data
-                    )
-                    console.log("officersList["+i);
+                    );
+                    console.log("officersList[" + i + "]");
                     console.log(officersList[i]);
-                } catch (error) {
-                    console.error("Error From SearchContact => enrich search :", error.message);
-                };
+                }
+                resolve();
+            } catch (error) {
+                console.error("Error From SearchContact:", error.message);
+                reject(error);
             }
-        }, 2000)
-        ContactEnrichIndex += 1
+        });
+
+        promises.push(promise);
     }
+
+    // Wait for all promises to resolve
+    await Promise.all(promises);
+
     console.log("🎶👍🎶 Obj After contact search");
     console.log(officersList);
     return officersList;
-};
+}
 
+// !================================
 exports.step2final_SearchContact = async function (BusinessNames, res) {
     for (let i = 0; i < BusinessNames.length; i++) {
         // setTimeout(async () => {
@@ -433,7 +514,8 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
                             console.log(searchBusinssRes);
-                            tempObj.BusinessPhones = searchBusinssRes.busPhones
+                            tempObj.BusinessPhones = [];
+                            tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones);
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
@@ -452,7 +534,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                     .filterOfficersData(OfficersDataList)
                     .slice(0, 5)
                 tempObj.officers = OfficersDataList;
-                await searchForConacts(tempObj.officers)
+                await searchForContacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
@@ -465,7 +547,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                 tempObj.result = "There is no officers results ";
                 console.log("😒😒 officers are empty array ... ")
                 tempObj.officers = [];
-                await searchForConacts(tempObj.officers)
+                await searchForContacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
