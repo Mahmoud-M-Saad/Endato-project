@@ -148,7 +148,7 @@ function add_finalObj_inAirTable(finalObj) {
 function collect_officers_from_eachbusinessSearch(businessV2res) {
     //! here i collect only officers from each business searh
     let businessV2RecordsList = businessV2res.businessV2Records;
-    let idsList_per_officer = [];
+    let officersList = [];
     if (businessV2RecordsList.length === 0) {
         console.log("empty response for business search")
         return []
@@ -233,7 +233,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
                                         ?.startDate
 
                                 }
-                                idsList_per_officer.push(tempObj)
+                                officersList.push(tempObj)
                             }
                         }
                     }
@@ -242,10 +242,10 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
             console
             .log("End of businessV2RecordsList["+i+"]");
     }
-    console.log("idsList_per_officer.len: "+idsList_per_officer.length);
-    console.log("*/*/*/*idsList_per_officer: ")
-    console.log(idsList_per_officer);
-    return idsList_per_officer;
+    console.log("officersList.len: "+officersList.length);
+    console.log("*/*/*/*officersList: ")
+    console.log(officersList);
+    return officersList , busPhones;
 };
 
 //! 02-newBusinessFilings
@@ -280,7 +280,6 @@ function collect_officers_from_NewResponse(newres) {
             }
         }
         console.log("busPhones: " + busPhones);
-        // ! ========================
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
         console.log("newBusinessFilings.length: "+newBusinessFilings.length);
         for (let j = 0; j < newBusinessFilings.length; j++) {
@@ -310,6 +309,7 @@ function collect_officers_from_NewResponse(newres) {
                         "addressLine2": `${item.city}, ${item.state}`
                     }
                 });
+
             if (tempOfficerObj != {}) {
                 officersList.push(tempOfficerObj)
             }
@@ -320,14 +320,14 @@ function collect_officers_from_NewResponse(newres) {
     console.log("officersList.length: "+ officersList.length);
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
-    return officersList;
+    return officersList , busPhones;
 };
 
 async function searchForConacts (officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
     for (let i = 0; i < officersList.length; i++) {
-        // setTimeout(async () => {
+        setTimeout(async () => {
             let targetOfficer = officersList[i];
             if (officersList[i]["PersonID"] !== null) {
                 try {
@@ -395,7 +395,7 @@ async function searchForConacts (officersListArr) {
                     console.error("Error From SearchContact => enrich search :", error.message);
                 };
             }
-        // }, i * 1000)
+        }, i * 1000)
         ContactEnrichIndex += 1
     }
     return officersList;
@@ -442,7 +442,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                             ) {
                                 console.log(z+" - 📢📢📢usCorpFilings start ....")
                                 console.log(response.data["businessV2Records"][z]['usCorpFilings']);
-                                searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data);
+                                searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data)
                             }
                             if (
                                 response.data["businessV2Records"][z]['usCorpFilings']
@@ -452,9 +452,10 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
+                            tempObj.push(searchBusinssRes.busPhones)
                             tempObj
                                 .officers
-                                .push(searchBusinssRes)
+                                .push(searchBusinssRes.officersList)
                             }                        
                         }
                         console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
@@ -469,7 +470,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                     .filterOfficersData(OfficersDataList)
                     .slice(0, 5)
                 tempObj.officers = OfficersDataList;
-                searchForConacts(tempObj.officers)
+                await searchForConacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
@@ -482,7 +483,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                 tempObj.result = "There is no officers results ";
                 console.log("😒😒 officers are empty array ... ")
                 tempObj.officers = [];
-                searchForConacts(tempObj.officers)
+                await searchForConacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
