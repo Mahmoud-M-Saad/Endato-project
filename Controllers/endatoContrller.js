@@ -65,77 +65,81 @@ function add_finalObj_inAirTable(finalObj) {
             }
         ],)
         .then((records) => {
-            console.log("finalObj.officers.length: "+ finalObj.officers.length);
+            console.log("finalObj.officers.length: " + finalObj.officers.length);
             console.log("finalObj.officer: ...");
             console.log(finalObj.officers);
             if (finalObj.officers.length > 0) {
-                const officers = finalObj
-                    .officers
-                    .map((officer) => ({
-                        fields: {
-                            'Person ID': officer['PersonID'],
-                            'First Name': officer['FirstName'],
-                            'Last Name': officer['LastName'],
-                            //'address': officer['Addresses'].addressLine2,
-                            'Full Name': officer['fullName'],
-                            // 'Street': officer['Street'], 'City': officer['City'], 'State':
-                            // officer['State'], 'postal/zip code': officer['postalCode'],
-                            'Street': officer['contactDetails']
-                                ?.addresses
-                                    ?.street,
-                            'City': officer['contactDetails']
-                                ?.addresses
-                                    ?.city,
-                            'State': officer['contactDetails']
-                                ?.addresses
-                                    ?.state,
-                            'postal/zip code': officer['contactDetails']
-                                ?.addresses
-                                    ?.zip,
-                            'phone 1': officer['contactDetails']
-                                ?.phones[0],
-                            'phone 2': officer['contactDetails']
-                                ?.phones[1],
-                            'phone 3': officer['contactDetails']
-                                ?.phones[2],
-                            'phone 4': officer['contactDetails']
-                                ?.phones[3],
-                            'phone 5': officer['contactDetails']
-                                ?.phones[4],
-                            'phone 6': officer['contactDetails']
-                                ?.phones[5],
-                            'email 1': officer['contactDetails']
-                                ?.emails[0],
-                            'email 2': officer['contactDetails']
-                                ?.emails[1],
-                            'email 3': officer['contactDetails']
-                                ?.emails[2],
-                            'email 4': officer['contactDetails']
-                                ?.emails[3],
-                            'email 5': officer['contactDetails']
-                                ?.emails[4],
-                            'email 6': officer['contactDetails']
-                                ?.emails[5],
-                            'company': [
-                                records[0]
-                                    ?.id
-                            ], // Link officers to the company record
-                        }
-                    }));
+                for (let i = 0; i < array.length; i++) {
+                    const officers = finalObj
+                        .officers[i]
+                        .map((officer) => ({
+                            fields: {
+                                'Person ID': officer['PersonID'],
+                                'First Name': officer['FirstName'],
+                                'Last Name': officer['LastName'],
+                                //'address': officer['Addresses'].addressLine2,
+                                'Full Name': officer['fullName'],
+                                // 'Street': officer['Street'], 'City': officer['City'], 'State':
+                                // officer['State'], 'postal/zip code': officer['postalCode'],
+                                'Street': officer['contactDetails']
+                                    ?.addresses
+                                        ?.street,
+                                'City': officer['contactDetails']
+                                    ?.addresses
+                                        ?.city,
+                                'State': officer['contactDetails']
+                                    ?.addresses
+                                        ?.state,
+                                'postal/zip code': officer['contactDetails']
+                                    ?.addresses
+                                        ?.zip,
+                                'phone 1': officer['contactDetails']
+                                    ?.phones[0],
+                                'phone 2': officer['contactDetails']
+                                    ?.phones[1],
+                                'phone 3': officer['contactDetails']
+                                    ?.phones[2],
+                                'phone 4': officer['contactDetails']
+                                    ?.phones[3],
+                                'phone 5': officer['contactDetails']
+                                    ?.phones[4],
+                                'phone 6': officer['contactDetails']
+                                    ?.phones[5],
+                                'email 1': officer['contactDetails']
+                                    ?.emails[0],
+                                'email 2': officer['contactDetails']
+                                    ?.emails[1],
+                                'email 3': officer['contactDetails']
+                                    ?.emails[2],
+                                'email 4': officer['contactDetails']
+                                    ?.emails[3],
+                                'email 5': officer['contactDetails']
+                                    ?.emails[4],
+                                'email 6': officer['contactDetails']
+                                    ?.emails[5],
+                                'company': [
+                                    records[0]
+                                        ?.id
+                                ], // Link officers to the company record
+                            }
+                        }));
+                    console.log("this is officer: 0" + i);
+                    console.log(officers);
 
-                base(tabelIDofficers).create(officers, (officerErr) => {
-                    if (officerErr) {
-                        console.error("from adding data to airtable📢", officerErr);
-                        //  return;
-                    }
-                    console.log('Company and Officer data added successfully.');
-                    console.log(
-                        "BusinessV2SearchIndexCounter: " + BusinessV2SearchIndexCounter
-                    );
-                    BusinessV2SearchIndexCounter = 0;
-                    console.log("ContactEnrichIndex: " + ContactEnrichIndex);
-                    ContactEnrichIndex = 0;
-                });
+                    base(tabelIDofficers).create(officers, (officerErr) => {
+                        if (officerErr) {
+                            console.error("from adding data to airtable📢", officerErr);
+                            //  return;
+                        }
+                    });
+                }
+                console.log('Company and Officer data added successfully.');
+                console.log(
+                    "BusinessV2SearchIndexCounter: " + BusinessV2SearchIndexCounter
+                );
+                BusinessV2SearchIndexCounter = 0;
+                console.log("ContactEnrichIndex: " + ContactEnrichIndex);
+                ContactEnrichIndex = 0;
             }
             console.log('Company  data only added 📢📢.');
         })
@@ -153,11 +157,10 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         console.log("empty response for business search")
         return []
     }
+    console.log(
+        "businessV2RecordsList.length: " + businessV2RecordsList.length
+    );
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log(
-            "businessV2RecordsList[" + i + "].length: " + businessV2RecordsList[i].length
-        );
-        console.log("businessV2RecordsList: " + businessV2RecordsList);
         let AllBusPhones = businessV2RecordsList[i]
             ?.usCorpFilings
                 ?.[0];
@@ -243,6 +246,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
             console
             .log("End of businessV2RecordsList["+i+"]");
     }
+    console.log("idsList_per_officer.len: "+idsList_per_officer.length);
     console.log("*/*/*/*idsList_per_officer: ")
     console.log(idsList_per_officer);
     return idsList_per_officer;
@@ -256,13 +260,10 @@ function collect_officers_from_NewResponse(newres) {
         console.log("empty response for business search")
         return []
     }
+    console.log(
+        "businessV2RecordsList.length: " + businessV2RecordsList.length
+    );
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log(
-            "businessV2RecordsList.length: " + businessV2RecordsList[i].length
-        );
-        console.log(
-            "businessV2RecordsList: " + businessV2RecordsList
-        );
         let AllBusPhones = businessV2RecordsList[i]
             ?.newBusinessFilings
                 ?.[0];
@@ -272,8 +273,6 @@ function collect_officers_from_NewResponse(newres) {
             // Check if phones is an array and not empty
             if (Array.isArray(AllBusPhones.phones) && AllBusPhones.phones.length !== 0) {
                 console.log("phones: " + JSON.stringify(AllBusPhones.phones));
-                console.log(AllBusPhones.phones);
-                // Push the 1st & 2nd numbers to busPhones
                 busPhones.push(
                     AllBusPhones.phones[0]
                         ?.phoneNumber
@@ -287,6 +286,7 @@ function collect_officers_from_NewResponse(newres) {
         console.log("busPhones: " + busPhones);
         // ! ========================
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
+        console.log("newBusinessFilings.length: "+newBusinessFilings.length);
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
             let addresses = newBusinessFilings[j].addresses
@@ -321,6 +321,7 @@ function collect_officers_from_NewResponse(newres) {
         console
         .log("End of businessV2RecordsList["+i+"]");
     }
+    console.log("officersList.length: "+ officersList.length);
     console.log("*/*/*/*officersList: ")
     console.log(officersList);
     return officersList;
