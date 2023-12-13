@@ -139,7 +139,7 @@ function add_finalObj_inAirTable(finalObj) {
         });
 };
 
-//! usCorpFilings
+//! 01-usCorpFilings
 function collect_officers_from_eachbusinessSearch(businessV2res) {
     //! here i collect only officers from each business searh
     let businessV2RecordsList = businessV2res.businessV2Records;
@@ -149,12 +149,12 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
         return []
     }
     for (let i = 0; i < businessV2RecordsList.length; i++) {
-        console.log("businessV2RecordsList.length: " + businessV2RecordsList[i].length);
-        let AllBusPhones = businessV2RecordsList[i].usCorpFilings[0] || null;
+        console.log("businessV2RecordsList["+i+"].length: " + businessV2RecordsList[i].length);
+        let AllBusPhones = businessV2RecordsList[i].usCorpFilings[0];
         let busPhones = []
         //? If Not null and not empty, so push the 1st & 2nd numbers  
-        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones)) {
-            if (AllBusPhones.phones.length !== 0) {
+        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
+            if (AllBusPhones.phones.length !== 0 && Array.isArray(AllBusPhones.phones)) {
                 console.log("phones: " + AllBusPhones.phones);
                 busPhones.push(AllBusPhones.phones[0].phoneNumber);
                 busPhones.push(AllBusPhones.phones[1].phoneNumber);
@@ -227,7 +227,7 @@ function collect_officers_from_eachbusinessSearch(businessV2res) {
     return idsList_per_officer;
 };
 
-//! newBusinessFilings
+//! 02-newBusinessFilings
 function collect_officers_from_NewResponse(newres) {
     let businessV2RecordsList = newres.businessV2Records;
     let officersList = []
@@ -240,8 +240,8 @@ function collect_officers_from_NewResponse(newres) {
         let AllBusPhones = businessV2RecordsList[i].newBusinessFilings[0];
         let busPhones = []
         //? If Not null and not empty, so push the 1st & 2nd numbers  
-        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined && Array.isArray(AllBusPhones.phones)) {
-            if (AllBusPhones.phones.length !== 0) {
+        if (AllBusPhones.phones !== null && AllBusPhones.phones !== undefined) {
+            if (AllBusPhones.phones.length !== 0 && Array.isArray(AllBusPhones.phones)) {
                 console.log("phones: " + AllBusPhones.phones);
                 busPhones.push(AllBusPhones.phones[0].phoneNumber);
                 busPhones.push(AllBusPhones.phones[1].phoneNumber);
