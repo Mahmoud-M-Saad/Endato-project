@@ -35,6 +35,7 @@ function add_finalObj_inAirTable(finalObj) {
                     'Company Names': companyNames,
                     'Business Phones 1': finalObj['BusinessPhones'][0] || "No phone number provided",
                     'Business Phones 2': finalObj['BusinessPhones'][1] || "No phone number provided",
+                    // 'File Name': finalObj['File Name'],
                     'Street Address': finalObj['Street Address'],
                     'City': finalObj['City'],
                     'State': finalObj['State'],
@@ -488,8 +489,8 @@ async function searchForContacts(officersListArr) {
               url: 'https://devapi.endato.com/Contact/Id',
               headers: {
                 accept: 'application/json',
-                'galaxy-ap-name': '12b8b798-8854-49ac-878c-48ac1d6bdec6',
-                'galaxy-ap-password': '53fa790fcb4c412b86278d941f25eec7',
+                'galaxy-ap-name': galaxy_name,
+                'galaxy-ap-password': galaxy_password,
                 'galaxy-search-type': 'DevAPIContactID',
                 'content-type': 'application/json',
                 'galaxy-client-type': 'DevAPIContactEnrich',
@@ -514,8 +515,8 @@ async function searchForContacts(officersListArr) {
               url: 'https://devapi.endato.com/Contact/Enrich',
               headers: {
                 accept: 'application/json',
-                'galaxy-ap-name': '12b8b798-8854-49ac-878c-48ac1d6bdec6',
-                'galaxy-ap-password': '53fa790fcb4c412b86278d941f25eec7',
+                'galaxy-ap-name': galaxy_name,
+                'galaxy-ap-password': galaxy_password,
                 'galaxy-search-type': 'DevAPIContactEnrich',
                 'content-type': 'application/json',
                 'galaxy-client-type': 'DevAPIContactEnrich',
@@ -620,15 +621,6 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                     "tempObj.BusinessPhones After ["+x+"]: " + JSON.stringify(tempObj.BusinessPhones)
                                 );
                         }
-                        // if(tempObj.BusinessPhones[0] !== undefined){
-                            //     if (Array.isArray(tempObj.BusinessPhones[0])){
-                                //         if (tempObj.BusinessPhones[0].length !== 0 ){
-                                    //             tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}
-                                    //     }
-                                    // }else{
-                                      
-                                        
-                                        // };
                     }
                     console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
                     console.log(tempObj);
