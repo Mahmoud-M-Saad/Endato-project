@@ -430,7 +430,9 @@ async function searchForContacts(officersListArr) {
                 "PersonID": `${targetOfficer.PersonID}`
               }
             })
+            console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
             officersList[i].contactDetails = filterEmails_Phones(response.data);
+            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
           } catch (error) {
             console.error("Error From SearchContact=> id search :", error.message);
           };
@@ -457,7 +459,9 @@ async function searchForContacts(officersListArr) {
                 }
               }
             })
+            console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
             officersList[i].contactDetails = filterEmails_Phones(response.data)
+            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
           } catch (error) {
             console.error("Error From SearchContact => enrich search :", error.message);
           };   
