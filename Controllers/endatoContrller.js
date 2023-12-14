@@ -554,12 +554,14 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 .push(searchBusinssRes.officersList)
                         }
                         console.log("tempObj.BusinessPhones: "+ JSON.stringify(tempObj.BusinessPhones));
-                        if (Array.isArray(tempObj.BusinessPhones[0])){
-                            if (tempObj?.BusinessPhones[0]?.length !== 0 ){
-                                tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}else{
-                                tempObj.BusinessPhones = searchBusinssRes.busPhones
-                            };
-                        }
+                        if(tempObj.BusinessPhones[0] !== undefined){
+                            if (Array.isArray(tempObj.BusinessPhones[0])){
+                                if (tempObj.BusinessPhones[0].length !== 0 ){
+                                    tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}
+                            }
+                        }else{
+                            tempObj.BusinessPhones = searchBusinssRes.busPhones
+                        };
                     }
                     console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
                     console.log(tempObj);
