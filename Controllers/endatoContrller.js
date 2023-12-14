@@ -414,7 +414,7 @@ function collect_officers_from_NewResponse(newres) {
 // }
 
 // !==========================
-async function searchForConacts(officersListArr) {
+async function searchForContacts(officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
     for (let index = 0; index < officersList.length; index++) {
@@ -554,7 +554,9 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 .push(searchBusinssRes.officersList)
                         }
                         console.log("tempObj.BusinessPhones: "+ JSON.stringify(tempObj.BusinessPhones));
-                        if (tempObj.BusinessPhones){tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}else{
+
+                        if (tempObj?.BusinessPhones[0]?.length !== 0 ){
+                            tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}else{
                             tempObj.BusinessPhones = searchBusinssRes.busPhones
                         };
                     }
