@@ -640,7 +640,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                     .filterOfficersData(OfficersDataList)
                     .slice(0, 5)
                 tempObj.officers = OfficersDataList;
-                await searchForContacts(tempObj.officers)
+                 searchForContacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
@@ -653,7 +653,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                 tempObj.result = "There is no officers results ";
                 console.log("😒😒 officers are empty array ... ")
                 tempObj.officers = [];
-                await searchForContacts(tempObj.officers)
+                 searchForContacts(tempObj.officers)
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
