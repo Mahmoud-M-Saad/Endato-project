@@ -1,6 +1,7 @@
 const Airtable = require('airtable');
 const axios = require('axios');
 const filterController = require('./filterController');
+const { json } = require('body-parser');
 
 require('dotenv').config();
 const galaxy_name = process.env.galaxy_name;
@@ -498,6 +499,7 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+            console.log("response.data From Id Search: "+JSON.stringify(response.data));
             officersList[i].contactDetails = await filterEmails_Phones(response.data);
             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
           } catch (error) {
@@ -527,6 +529,7 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+            console.log("response.data From Enrich Search: "+JSON.stringify(response.data));
             officersList[i].contactDetails = await filterEmails_Phones(response.data)
             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
           } catch (error) {
