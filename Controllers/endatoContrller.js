@@ -539,7 +539,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                     console.log("busPhones is a non-empty array.");
                                     tempObj
                                         .BusinessPhones[0]
-                                        .push(searchBusinssRes.busPhones)
+                                        .push(...searchBusinssRes.busPhones)
                                 }
                                 console.log(
                                     "tempObj.BusinessPhones After ["+x+"]: " + JSON.stringify(tempObj.BusinessPhones)
