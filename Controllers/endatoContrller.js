@@ -538,7 +538,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 if (searchBusinssRes && searchBusinssRes.busPhones && Array.isArray(searchBusinssRes.busPhones) && searchBusinssRes.busPhones.length > 0) {
                                     console.log("busPhones is a non-empty array.");
                                     tempObj
-                                        .BusinessPhones[0]
+                                        .BusinessPhones
                                         .push(...searchBusinssRes.busPhones)
                                 }
                                 console.log(
