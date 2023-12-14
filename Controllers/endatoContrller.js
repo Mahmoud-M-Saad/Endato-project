@@ -478,7 +478,6 @@ async function searchForContacts(officersListArr) {
     console.log("my obj befor contact search", officersList)
     for (const officer of officersList) {
         console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-        await new Promise((resolve) => setTimeout(resolve, 1000));
       setTimeout(async()=>{
         let targetOfficer = officersList[i];
         if (officersList[i]["PersonID"] !== null) {
@@ -499,13 +498,13 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-            officersList[i].contactDetails = filterEmails_Phones(response.data);
+            officersList[i].contactDetails = await filterEmails_Phones(response.data);
             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
           } catch (error) {
             console.error("Error From SearchContact=> id search :", error.message);
           };
         }
-        //*contact enrich
+        //*contact enrichs
         else {
           try {
             const response = await axios.request({
@@ -528,7 +527,7 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-            officersList[i].contactDetails = filterEmails_Phones(response.data)
+            officersList[i].contactDetails = await filterEmails_Phones(response.data)
             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
           } catch (error) {
             console.error("Error From SearchContact => enrich search :", error.message);

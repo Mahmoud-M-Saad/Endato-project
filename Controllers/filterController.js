@@ -62,7 +62,7 @@ exports.filterOfficersData = function (data) {
     return filteredResult;
 };
 
-exports.filterEmails_Phones = function (data) {
+exports.filterEmails_Phones = async function (data) {
     if (!data.person) {
         return {
             emails: [],
