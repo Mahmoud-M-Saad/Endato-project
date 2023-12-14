@@ -634,6 +634,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                 };
             }
             if (tempObj.officers.length > 0) {
+                console.log("ther are officers !!! ... ")
                 let OfficersDataList = [].concat(...tempObj.officers)
                 OfficersDataList = filterController
                     .filterOfficersData(OfficersDataList)
@@ -646,7 +647,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         add_finalObj_inAirTable(tempObj)
                     })
                     .catch(err => {
-                        console.log("err for new function of getting contacts", err.message)
+                        console.log("err while we have officers for function of getting contacts", err.message)
                     })
                 } else {
                 tempObj.result = "There is no officers results ";
@@ -659,7 +660,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                         add_finalObj_inAirTable(tempObj)
                     })
                     .catch(err => {
-                        console.log("err for new function of getting contacts", err.message)
+                        console.log("err whilo no offices exist for new function of getting contacts", err.message)
                     })
                 }
         }, i * 1000)
