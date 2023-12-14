@@ -295,7 +295,7 @@ function collect_officers_from_NewResponse(newres) {
 
             }
         }
-        console.log("busPhones: " + busPhones);
+        console.log("busPhones array after: " + busPhones);
         let newBusinessFilings = businessV2RecordsList[i].newBusinessFilings;
         for (let j = 0; j < newBusinessFilings.length; j++) {
             let contacts = newBusinessFilings[j].contacts
@@ -534,17 +534,17 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
+                                console.log("tempObj.BusinessPhones Before: "+ JSON.stringify(tempObj.BusinessPhones));
+                                if (searchBusinssRes && searchBusinssRes.busPhones && Array.isArray(searchBusinssRes.busPhones) && searchBusinssRes.busPhones.length > 0) {
+                                    console.log("busPhones is a non-empty array.");
+                                    tempObj
+                                        .BusinessPhones
+                                        .push(searchBusinssRes.busPhones)
+                                }
+                                console.log(
+                                    "tempObj.BusinessPhones After ["+x+"]: " + JSON.stringify(tempObj.BusinessPhones)
+                                );
                         }
-                        console.log("tempObj.BusinessPhones Before: "+ JSON.stringify(tempObj.BusinessPhones));
-                        if (searchBusinssRes && searchBusinssRes.busPhones && Array.isArray(searchBusinssRes.busPhones) && searchBusinssRes.busPhones.length > 0) {
-                            console.log("busPhones is a non-empty array.");
-                            tempObj
-                                .BusinessPhones
-                                .push(searchBusinssRes.busPhones)
-                        }
-                        console.log(
-                            "tempObj.BusinessPhones After ["+x+"]: " + JSON.stringify(tempObj.BusinessPhones)
-                        );
                         // if(tempObj.BusinessPhones[0] !== undefined){
                             //     if (Array.isArray(tempObj.BusinessPhones[0])){
                                 //         if (tempObj.BusinessPhones[0].length !== 0 ){
