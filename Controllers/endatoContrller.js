@@ -410,7 +410,6 @@ async function searchForContacts(officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
     for (let i = 0; i < officersList.length; i++) {
-        (function (index) {
       setTimeout(async()=>{
         let targetOfficer = officersList[i];
         if (officersList[i]["PersonID"] !== null) {
@@ -463,7 +462,6 @@ async function searchForContacts(officersListArr) {
           };   
         } 
       },i*1000)
-    })(i);
       ContactEnrichIndex += 1 
     }
     return officersList;
@@ -473,8 +471,12 @@ async function searchForContacts(officersListArr) {
 exports.step2final_SearchContact = async function (BusinessNames, res) {
     for (let i = 0; i < BusinessNames.length; i++) {
         setTimeout(async () => {
+            console.log("BusinessNames[i]: "+BusinessNames[i]);
             let tempObj = BusinessNames[i]
+            console.log("tempObj: "+tempObj);
             tempObj.officers = []
+            tempObj.BusinessPhones = []
+            console.log("tempObj After empty Array: "+tempObj);
             for (let x = 0; x < BusinessNames[i]["Primary Names"].length; x++) {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 try {
@@ -534,15 +536,24 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 .push(searchBusinssRes.officersList)
                         }
                         console.log("tempObj.BusinessPhones Before: "+ JSON.stringify(tempObj.BusinessPhones));
+                        if (searchBusinssRes && searchBusinssRes.busPhones && Array.isArray(searchBusinssRes.busPhones) && searchBusinssRes.busPhones.length > 0) {
+                            console.log("busPhones is a non-empty array.");
+                            tempObj
+                                .BusinessPhones
+                                .push(searchBusinssRes.busPhones)
+                        }
+                        console.log(
+                            "tempObj.BusinessPhones After ["+x+"]: " + JSON.stringify(tempObj.BusinessPhones)
+                        );
                         // if(tempObj.BusinessPhones[0] !== undefined){
                             //     if (Array.isArray(tempObj.BusinessPhones[0])){
                                 //         if (tempObj.BusinessPhones[0].length !== 0 ){
                                     //             tempObj.BusinessPhones[0].push(searchBusinssRes.busPhones)}
                                     //     }
                                     // }else{
-                                        tempObj.BusinessPhones = searchBusinssRes.busPhones
+                                      
+                                        
                                         // };
-                                        console.log("tempObj.BusinessPhones After: "+ JSON.stringify(tempObj.BusinessPhones));
                     }
                     console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
                     console.log(tempObj);
