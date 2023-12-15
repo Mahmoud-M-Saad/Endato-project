@@ -1,3 +1,8 @@
+const axios = require('axios');
+
+require('dotenv').config();
+const ValidatorApiKey = process.env.PHONE_VALIDATOR_API_KEY;
+
 exports.uniqueNames = function (inputText) {
     return inputText
         .replace(/[.,:;]/g, ' ')
@@ -62,6 +67,26 @@ exports.filterOfficersData = function (data) {
     return filteredResult;
 };
 
+async function convertAndCheckPhoneNumber(phone) {
+    //? To convet the phone number from ((305) 476-9429) to (13054769429)
+    const formattedNumber = `1${phone.replace(/\D/g, '')}`;
+
+    //? then check if the number vaild or not
+    try {
+        const response = await axios.get(
+            `https://www.ipqualityscore.com/api/json/phone/${ValidatorApiKey}/${formattedNumber}`
+        );
+        if (response.data.success && response.data.message === "Phone is valid.") {
+            console.log("From Validation Phone Function: Phone is valid");
+            return phone
+        } else {
+            console.log("From Validation Phone Function: Sorry! Phone is not valid");
+        }
+    } catch (error) {
+        console.error('Error making API request:', error.message);
+    }
+};
+
 exports.filterEmails_Phones = async function (data) {
     if (!data.person) {
         return {
@@ -121,9 +146,10 @@ exports.filterEmails_Phones = async function (data) {
         .phones
         .slice(0, 6);
     for (let i = 0; i < data.person.phones.length; i++) {
+        let validPhone = await convertAndCheckPhoneNumber(data.person.phones[i].number)
         NewData
             .phones
-            .push(data.person.phones[i].number);
+            .push(validPhone);
     }
     //==================Addresse=========================
     for (let i = 0; i < data.person.addresses.length; i++) {
