@@ -15,10 +15,8 @@ let BusinessV2SearchIndexCounter = 0;
 let ContactEnrichIndex = 0;
 
 function add_finalObj_inAirTable(finalObj) {
-    console.log("From AirTable Endpoint finalObj");
-    console.log(finalObj);
+    //! MSaad: I check this finalObj comes right 
     const base = new Airtable({apiKey: YOUR_API_KEY}).base(YOUR_BASE_ID);
-
     const PrimaryNames = finalObj['Primary Names']
     const CopyPasteURLs = finalObj['CopyPasteURLs']
     // Concatenate the array elements into a single string with a delimiter
@@ -479,7 +477,6 @@ async function searchForContacts(officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
     for (let i = 0; i < officersList.length; i++) {
-        console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
       setTimeout(async()=>{
         let targetOfficer = officersList[i];
         if (officersList[i]["PersonID"] !== null) {
@@ -500,9 +497,9 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-            console.log("response.data From Id Search: "+JSON.stringify(response.data));
+            // console.log("response.data From Id Search: "+JSON.stringify(response.data));
             officersList[i].contactDetails = await filterController.filterEmails_Phones(response.data);
-            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
+            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
           } catch (error) {
             console.error("Error From SearchContact=> id search :", error.message);
           };
@@ -530,9 +527,9 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-            console.log("response.data From Enrich Search: "+JSON.stringify(response.data));
+            // console.log("response.data From Enrich Search: "+JSON.stringify(response.data));
             officersList[i].contactDetails = await filterController.filterEmails_Phones(response.data)
-            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i].contactDetails));
+            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
           } catch (error) {
             console.error("Error From SearchContact => enrich search :", error.message);
           };   
@@ -547,12 +544,11 @@ async function searchForContacts(officersListArr) {
 exports.step2final_SearchContact = async function (BusinessNames, res) {
     for (let i = 0; i < BusinessNames.length; i++) {
         setTimeout(async () => {
-            console.log("BusinessNames[i]: "+BusinessNames[i]);
+            console.log("BusinessNames[i]: "+JSON.stringify(BusinessNames[i]));
             let tempObj = BusinessNames[i]
-            console.log("tempObj: "+tempObj);
             tempObj.officers = []
             tempObj.BusinessPhones = []
-            console.log("tempObj After empty Array: "+tempObj);
+            console.log("tempObj After empty Array: "+JSON.stringify(tempObj));
             for (let x = 0; x < BusinessNames[i]["Primary Names"].length; x++) {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 try {
@@ -592,7 +588,6 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 console.log(
                                     z + " - 📢📢📢usCorpFilings start ...."
                                 )
-                                console.log(response.data["businessV2Records"][z]['usCorpFilings']);
                                 searchBusinssRes = collect_officers_from_eachbusinessSearch(response.data)
                             }
                             if (
@@ -602,24 +597,19 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                                 console.log(
                                     z + " - 📢📢📢newBusinessFilings start ...."
                                 )
-                                console.log(response.data["businessV2Records"][z]['newBusinessFilings']);
                                 searchBusinssRes = collect_officers_from_NewResponse(response.data)
                             }
-                            console.log(searchBusinssRes);
-                            
+                            console.log("searchBusinssRes.officersList.length: "+searchBusinssRes.officersList.length);
+                            console.log("searchBusinssRes.busPhones is: "+searchBusinssRes.busPhones);
                             tempObj
                                 .officers
                                 .push(searchBusinssRes.officersList)
-                                console.log("tempObj.BusinessPhones Before: "+ JSON.stringify(tempObj.BusinessPhones));
                                 if (searchBusinssRes && searchBusinssRes.busPhones && Array.isArray(searchBusinssRes.busPhones) && searchBusinssRes.busPhones.length > 0) {
                                     console.log("busPhones is a non-empty array.");
                                     tempObj
                                         .BusinessPhones
                                         .push(...searchBusinssRes.busPhones)
                                 }
-                                console.log(
-                                    "tempObj.BusinessPhones After ["+x+"]: " + JSON.stringify(tempObj.BusinessPhones)
-                                );
                         }
                     }
                     console.log("📢📢📢📢📢📢📢📢📢 After adding officers tempObj is: ")
@@ -637,8 +627,11 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                 tempObj.officers = OfficersDataList;
                 await searchForContacts(tempObj.officers)
                     .then((res) => {
+                        console.log("res from searchForContacts in then response: ... ");
+                        console.log(res);
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
+                        //! MSaad: I check this and it's go to function right 
                         add_finalObj_inAirTable(tempObj)
                     })
                     .catch(err => {
@@ -652,6 +645,7 @@ exports.step2final_SearchContact = async function (BusinessNames, res) {
                     .then((res) => {
                         tempObj.officers = res
                         console.log("FinalObj📢", tempObj)
+                        //! MSaad: I check this and it's go to function right 
                         add_finalObj_inAirTable(tempObj)
                     })
                     .catch(err => {

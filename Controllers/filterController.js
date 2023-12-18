@@ -184,5 +184,6 @@ exports.filterEmails_Phones = async function (data) {
             .addresses[i]
             .zip;
     }
+    console.log(NewData);
     return NewData;
 };
