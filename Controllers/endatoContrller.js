@@ -473,73 +473,6 @@ function collect_officers_from_NewResponse(newres) {
 //     return officersList;
 //   };
 // ! ================REAL ONE============================
-// async function searchForContacts(officersListArr) {
-//     let officersList = officersListArr
-//     console.log("my obj befor contact search", officersList)
-//     for (let i = 0; i < officersList.length; i++) {
-//       setTimeout(async()=>{
-//         let targetOfficer = officersList[i];
-//         if (officersList[i]["PersonID"] !== null) {
-//           try {
-//             const response = await axios.request({
-//               method: 'POST',
-//               url: 'https://devapi.endato.com/Contact/Id',
-//               headers: {
-//                 accept: 'application/json',
-//                 'galaxy-ap-name': galaxy_name,
-//                 'galaxy-ap-password': galaxy_password,
-//                 'galaxy-search-type': 'DevAPIContactID',
-//                 'content-type': 'application/json',
-//                 'galaxy-client-type': 'DevAPIContactEnrich',
-//               },
-//               data: {
-//                 "PersonID": `${targetOfficer.PersonID}`
-//               }
-//             })
-//             console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-//             // console.log("response.data From Id Search: "+JSON.stringify(response.data));
-//             officersList[i].contactDetails = await filterController.filterEmails_Phones(response.data);
-//             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-//           } catch (error) {
-//             console.error("Error From SearchContact=> id search :", error.message);
-//           };
-//         }
-//         //*contact enrichs
-//         else {
-//           try {
-//             const response = await axios.request({
-//               method: 'POST',
-//               url: 'https://devapi.endato.com/Contact/Enrich',
-//               headers: {
-//                 accept: 'application/json',
-//                 'galaxy-ap-name': galaxy_name,
-//                 'galaxy-ap-password': galaxy_password,
-//                 'galaxy-search-type': 'DevAPIContactEnrich',
-//                 'content-type': 'application/json',
-//                 'galaxy-client-type': 'DevAPIContactEnrich',
-//               },
-//               data: {
-//                 "FirstName": `${targetOfficer['FirstName']}`,
-//                 "LastName": `${targetOfficer['LastName']}`,
-//                 "Address": {
-//                   "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
-//                 }
-//               }
-//             })
-//             console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-//             // console.log("response.data From Enrich Search: "+JSON.stringify(response.data));
-//             officersList[i].contactDetails = await filterController.filterEmails_Phones(response.data)
-//             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-//           } catch (error) {
-//             console.error("Error From SearchContact => enrich search :", error.message);
-//           };   
-//         } 
-//       },i*1000)
-//       ContactEnrichIndex += 1 
-//     }
-//     return officersList;
-//   };
-// ! =============================================
 async function searchForContacts(officersListArr) {
     let officersList = officersListArr
     console.log("my obj befor contact search", officersList)
@@ -564,10 +497,8 @@ async function searchForContacts(officersListArr) {
               }
             })
             console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-            let LASTRES = await filterController.filterEmails_Phones(response.data);
-            console.log("LASTRES["+i+"]: ...");
-            console.log(LASTRES);
-            officersList[i].contactDetails = LASTRES
+            // console.log("response.data From Id Search: "+JSON.stringify(response.data));
+            officersList[i].contactDetails = await filterController.filterEmails_Phones(response.data);
             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
           } catch (error) {
             console.error("Error From SearchContact=> id search :", error.message);
@@ -576,7 +507,7 @@ async function searchForContacts(officersListArr) {
         //*contact enrichs
         else {
           try {
-             await axios.request({
+            const response = await axios.request({
               method: 'POST',
               url: 'https://devapi.endato.com/Contact/Enrich',
               headers: {
@@ -594,19 +525,11 @@ async function searchForContacts(officersListArr) {
                   "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
                 }
               }
-            }).then( (response)=>{
-                console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-                console.log("response["+i+"]");
-                console.log(response);
-                filterController.filterEmails_Phones(response.data)}                
-            ).then((LastRes) =>{
-                console.log("LastRes["+i+"]");
-                console.log(LastRes);
-                officersList[i].contactDetails = LastRes
-                console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
-            }).catch(err=>{
-                console.log(err);
             })
+            console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+            // console.log("response.data From Enrich Search: "+JSON.stringify(response.data));
+            officersList[i].contactDetails = await filterController.filterEmails_Phones(response.data)
+            console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
           } catch (error) {
             console.error("Error From SearchContact => enrich search :", error.message);
           };   
@@ -616,6 +539,83 @@ async function searchForContacts(officersListArr) {
     }
     return officersList;
   };
+// ! =============================================
+// async function searchForContacts(officersListArr) {
+//     let officersList = officersListArr
+//     console.log("my obj befor contact search", officersList)
+//     for (let i = 0; i < officersList.length; i++) {
+//       setTimeout(async()=>{
+//         let targetOfficer = officersList[i];
+//         if (officersList[i]["PersonID"] !== null) {
+//           try {
+//             const response = await axios.request({
+//               method: 'POST',
+//               url: 'https://devapi.endato.com/Contact/Id',
+//               headers: {
+//                 accept: 'application/json',
+//                 'galaxy-ap-name': galaxy_name,
+//                 'galaxy-ap-password': galaxy_password,
+//                 'galaxy-search-type': 'DevAPIContactID',
+//                 'content-type': 'application/json',
+//                 'galaxy-client-type': 'DevAPIContactEnrich',
+//               },
+//               data: {
+//                 "PersonID": `${targetOfficer.PersonID}`
+//               }
+//             })
+//             console.log("From Id officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+//             let LASTRES = await filterController.filterEmails_Phones(response.data);
+//             console.log("LASTRES["+i+"]: ...");
+//             console.log(LASTRES);
+//             officersList[i].contactDetails = LASTRES
+//             console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+//           } catch (error) {
+//             console.error("Error From SearchContact=> id search :", error.message);
+//           };
+//         }
+//         //*contact enrichs
+//         else {
+//           try {
+//              await axios.request({
+//               method: 'POST',
+//               url: 'https://devapi.endato.com/Contact/Enrich',
+//               headers: {
+//                 accept: 'application/json',
+//                 'galaxy-ap-name': galaxy_name,
+//                 'galaxy-ap-password': galaxy_password,
+//                 'galaxy-search-type': 'DevAPIContactEnrich',
+//                 'content-type': 'application/json',
+//                 'galaxy-client-type': 'DevAPIContactEnrich',
+//               },
+//               data: {
+//                 "FirstName": `${targetOfficer['FirstName']}`,
+//                 "LastName": `${targetOfficer['LastName']}`,
+//                 "Address": {
+//                   "addressLine2": `${targetOfficer.Addresses['addressLine2']}`
+//                 }
+//               }
+//             }).then( (response)=>{
+//                 console.log("From Enrich officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+//                 console.log("response["+i+"]");
+//                 console.log(response);
+//                 filterController.filterEmails_Phones(response.data)}                
+//             ).then((LastRes) =>{
+//                 console.log("LastRes["+i+"]");
+//                 console.log(LastRes);
+//                 officersList[i].contactDetails = LastRes
+//                 console.log("officersList["+i+"]: "+ JSON.stringify(officersList[i]));
+//             }).catch(err=>{
+//                 console.log(err);
+//             })
+//           } catch (error) {
+//             console.error("Error From SearchContact => enrich search :", error.message);
+//           };   
+//         } 
+//       },i*1000)
+//       ContactEnrichIndex += 1 
+//     }
+//     return officersList;
+//   };
 // ! =============================================
 
 exports.step2final_SearchContact = async function (BusinessNames, res) {
